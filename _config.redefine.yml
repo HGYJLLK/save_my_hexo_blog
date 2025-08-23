@@ -251,14 +251,22 @@ comment:
   # 是否启用评论
   enable: true
   # 评论系统
-  system: waline  # waline, gitalk, twikoo, giscus
+  system: giscus  # waline, gitalk, twikoo, giscus
   # 系统配置
   config:
-    # Waline评论系统
-    waline:
-      serverUrl: https://example.example.com  # 服务器地址
-      lang: zh-CN  # 语言
-      # 其他配置请参考waline文档
+    # Giscus评论系统（基于GitHub Discussions）
+    giscus:
+      repo: HGYJLLK/save_my_hexo_blog  # 你的GitHub仓库
+      repo_id: R_kgDOPQ0xbg
+      category: General
+      category_id: DIC_kwDOPQ0xbs4CuhA9
+      mapping: pathname
+      strict: 0
+      reactions_enabled: 1
+      emit_metadata: 0
+      lang: zh-CN
+      input_position: bottom
+      loading: lazy
 
 # ========== 页脚 ==========
 footer:

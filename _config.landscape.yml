@@ -1,0 +1,14 @@
+# Landscape ;˜Mn
+comment:
+  enable: true
+  system: giscus
+  giscus:
+    repo: HGYJLLK/save_my_hexo_blog
+    repo_id: R_kgDOPQ0xbg
+    category: General
+    category_id: DIC_kwDOPQ0xbs4CuhA9
+    mapping: pathname
+    reactions_enabled: 1
+    emit_metadata: 0
+    theme: preferred_color_scheme
+    lang: zh-CN
