@@ -2,6 +2,7 @@
 title: 在hexo主题<Redefine>中添加评论功能！
 date: 2025-09-02 10:52:18
 tags: [Hexo, blog, 评论功能, 主题, Redefine]
+categories: [博客开发]
 ---
 
 ## 概述

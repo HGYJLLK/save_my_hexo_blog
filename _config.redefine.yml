@@ -137,7 +137,7 @@ home_banner:
     url:            # 字体链接
   # 社交链接
   social_links:
-    enable: false   # 是否启用
+    enable: true    # 是否启用
     style: default  # 样式: default默认, reverse反转, center居中
     # 社交链接
     links:
@@ -165,9 +165,15 @@ navbar:
     pages: 1000px     # 其他页面宽度
   # 导航链接
   links:
-    归档: 
+    Home:
+      path: /
+      icon: fa-regular fa-house
+    Archives: 
       path: /archives 
       icon: fa-regular fa-archive
+    GitHub:
+      path: https://github.com/HGYJLLK
+      icon: fa-brands fa-github
 
   # 搜索功能(需要安装hexo-generator-searchdb插件)
   search:
@@ -222,7 +228,7 @@ articles:
   author_label: 
     enable: true  # 是否启用
     auto: false   # 是否自动添加等级标签
-    list: []      # 自定义标签列表
+    list: ["lv99"]      # 自定义标签列表
   # 代码块设置
   code_block:
     copy: true    # 是否启用复制按钮
@@ -280,9 +286,9 @@ footer:
   statistics: true  # 显示站点统计（文章总数、字数统计）
   # ICP备案号
   icp:
-    enable: false   # 是否启用
-    number:         # ICP备案号
-    url:            # ICP备案链接
+    enable: true    # 是否启用
+    number: 粤ICP备2024339439号-2   # ICP备案号
+    url: https://beian.miit.gov.cn/   # ICP备案链接
 
 # ========== 注入自定义代码 ==========
 inject:

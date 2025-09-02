@@ -2,6 +2,7 @@
 title: 如何部署一个 https 证书？
 date: 2025-05-10 14:01:57
 tags: [SSL, HTTPS, Apache, 服务器运维]
+categories: [服务器运维]
 ---
 ## 在阿里云上部署 ssh 证书的前提条件
 

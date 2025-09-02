@@ -2,6 +2,7 @@
 title: 如何给你自己部署的服务器安装 IPV6？
 date: 2025-05-10 14:42:21
 tags: [IPV6, 服务器运维]
+categories: [服务器运维]
 ---
 # 在Mac上配置IPv6 DDNS实现公网访问
 

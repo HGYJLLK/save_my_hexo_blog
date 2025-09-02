@@ -1,7 +1,8 @@
 ---
 title: My First Post
 date: 2025-03-30 02:27:14
-tags:
+tags: [随笔]
+categories: [随笔]
 ---
 # HELLO!
 ## todo!

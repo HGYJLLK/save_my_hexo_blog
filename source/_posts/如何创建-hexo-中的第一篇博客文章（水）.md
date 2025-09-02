@@ -2,6 +2,7 @@
 title: 如何创建 hexo 中的第一篇博客文章（水）
 date: 2025-04-18 17:37:15
 tags: [ hexo, Apache , blog]
+categories: [博客开发]
 ---
 # 立马部署！
 
