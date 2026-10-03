@@ -66,7 +66,7 @@ comment:
     giscus:
       repo: your-username/your-repository-name
       repo_id: R_kgDOxxxxxxxx
-      category: Announcements
+      category: General
       category_id: DIC_kwDOxxxxxxxx
       mapping: pathname
       strict: 0
@@ -100,13 +100,14 @@ comment:
 
 ## 部署与测试
 
-完成配置后，执行以下命令重新生成并部署博客：
+完成配置后，执行以下命令重新生成博客：
 
 ```bash
 hexo clean
 hexo generate
-hexo deploy
 ```
+
+然后把生成的 `public/` 目录部署到你的服务器上。如果你在 `_config.yml` 里配置了 `deploy`，也可以用 `hexo deploy` 一键部署；我的 `deploy.type` 是空的，所以是用 `rsync` 把 `public/` 上传到服务器的。
 
 部署完成后，访问任意博客文章页面，应该能看到Giscus评论组件。使用GitHub账号登录即可测试评论功能。
 

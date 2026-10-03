@@ -139,16 +139,18 @@ home_banner:
   social_links:
     enable: true    # 是否启用
     style: default  # 样式: default默认, reverse反转, center居中
-    # 社交链接
+    # 社交链接（Redefine 2.9 起改为列表写法：icon 填图标名，url 填链接，留空的项可以删掉）
     links:
-      github: https://github.com/HGYJLLK    # GitHub链接 
-      instagram:    # Instagram链接
-      zhihu:        # 知乎链接
-      twitter:      # Twitter链接
-      email:        # 邮箱地址
-    # 带二维码的社交链接
-    qrs:
-      weixin:       # 微信二维码图片链接
+      - icon: github
+        url: https://github.com/HGYJLLK
+      - icon: twitter
+        url:
+      - icon: email   # 主题默认带一个示例邮箱，必须显式留空，否则首页会多出一个 @ 图标
+        url:
+      - icon: telegram
+        url:
+    # 带二维码的社交链接（qr 填二维码图片地址）
+    qrs: []
 
 # ========== 导航栏 ==========
 navbar:

@@ -1,5 +1,5 @@
 ---
-title: 如何给你自己部署的服务器安装 IPV6？
+title: 如何在 Mac 上配置 IPv6 DDNS 实现公网访问
 date: 2025-05-10 14:42:21
 tags: [IPV6, 服务器运维]
 categories: [服务器运维]
@@ -55,7 +55,7 @@ categories: [服务器运维]
 
 2. **运行DDNS-Go**
    - 执行`./ddns-go`命令启动程序
-   - 在浏览器打开http://localhost:9876进行配置
+   - 在浏览器打开 `http://localhost:9876` 进行配置
 
 3. **配置DDNS-Go**
    - 选择"阿里云"服务商

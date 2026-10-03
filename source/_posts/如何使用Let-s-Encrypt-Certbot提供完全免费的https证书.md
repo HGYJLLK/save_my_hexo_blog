@@ -16,12 +16,12 @@ categories: [服务器运维]
 - **付费续期**：证书到期后需要支付续费费用
 - **手动更新**：需要手动下载证书并更新服务器配置
 - **管理复杂**：多个域名需要分别购买和管理
-- **有效期短**：通常1年有效期，频繁续费
+- **有效期短**：免费证书有效期只有 90 天（3 个月），到期要手动下载并更新；付费证书也要定期续费
 
 ## Let's Encrypt + Certbot的优点
 
 - **完全免费**：证书永久免费，无任何费用
-- **自动续期**：每3个月自动续期，无需人工干预
+- **自动续期**：证书有效期 90 天，Certbot 会在到期前自动续期，无需人工干预
 - **自动配置**：一条命令自动配置Apache/Nginx
 - **批量管理**：可以同时管理多个域名
 - **权威认证**：被所有主流浏览器信任
@@ -40,14 +40,24 @@ sudo certbot certificates
 
 ### 2. 安装Certbot
 
-```bash
-# Ubuntu/Debian系统
-sudo apt update
-sudo apt install certbot python3-certbot-apache
+Certbot 官方现在推荐用 snap 安装，这样能一直拿到官方维护的最新版，并且自动更新：
 
-# CentOS/RHEL系统
-sudo yum install certbot python3-certbot-apache
+```bash
+# Ubuntu/Debian 系统
+sudo apt update
+sudo apt install snapd
+sudo snap install --classic certbot
+sudo ln -s /snap/bin/certbot /usr/bin/certbot
 ```
+
+如果系统不方便用 snap，也可以用系统源安装，但版本会比较旧：
+
+```bash
+# Ubuntu/Debian 系统（系统源，版本较旧）
+sudo apt install certbot python3-certbot-apache
+```
+
+> 原来这里还写了 CentOS 的 `yum` 命令。CentOS 已经停止维护，如果用的是 Rocky Linux、AlmaLinux 等 RHEL 系发行版，请参考 [Certbot 官方安装说明](https://certbot.eff.org/instructions)。
 
 ### 3. 从阿里云SSL切换到Let's Encrypt
 
@@ -121,3 +131,12 @@ Strict-Transport-Security: max-age=31536000
 ```
 
 这样就能拥有一个非常不错的完全免费且自动续期的SSL证书
+
+## 补充：证书有效期会越来越短（2026 年更新）
+
+行业规则正在缩短 SSL 证书的有效期，Let's Encrypt 已经公布了时间表：
+
+- 2027 年 2 月 10 日起，默认证书有效期从 90 天缩短为 **64 天**；
+- 2028 年 2 月 16 日起，进一步缩短为 **45 天**。
+
+这只影响新签发的证书，Certbot 自动续期会照常工作。所以更要确认自动续期是正常的（上面第 5 步的 `certbot renew --dry-run`），**不要依赖手动更新证书**。

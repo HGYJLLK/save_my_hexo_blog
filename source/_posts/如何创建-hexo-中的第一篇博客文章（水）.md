@@ -89,9 +89,11 @@ hexo s
 打开这个网址：[Hexo主题库](https://hexo.io/themes/)
 寻找一个你喜欢的主题！我的部署如下：
 ```bash
-# 把喜欢的主题Git克隆主题到themes目录吧！
-git clone https://github.com/EvanNotFound/hexo-theme-redefine.git themes/redefine
+# 用 npm 安装主题（推荐）
+npm install hexo-theme-redefine@latest
 ```
+
+> 原来这里写的是 `git clone` 到 `themes/redefine`。现在更推荐用 npm 安装：升级只要更新版本号，仓库里也不用保存整个主题。注意不要留一个空的 `themes/redefine` 目录，它会盖住 npm 安装的主题，导致生成的页面全是空白。
 
 ### 2. 配置站点使用Redefine主题
 修改Hexo根目录下的 `_config.yml`：

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="keywords" content="Hexo Theme Redefine">
     
+    
     <meta name="author" content="HGYJLLK">
     
     <!-- Completely eliminate flash of wrong theme -->
@@ -31,9 +32,6 @@
                 const isDark = theme === DARK;
                 const root = document.documentElement;
                 
-                // Set data attribute for CSS variables
-                root.setAttribute("data-theme", theme);
-                
                 // Set classes for compatibility
                 root.classList.add(theme);
                 root.classList.remove(isDark ? LIGHT : DARK);
@@ -52,69 +50,26 @@
                 }
             });
             
-            // Set body classes once DOM is ready
-            if (document.readyState !== "loading") {
-                document.body.classList.add(theme + "-mode");
-            } else {
-                document.addEventListener("DOMContentLoaded", () => {
-                    document.body.classList.add(theme + "-mode");
-                    document.body.classList.remove((theme === DARK ? LIGHT : DARK) + "-mode");
+            // Set body classes ASAP (before DOMContentLoaded)
+            (function() {
+                const addBodyClass = () => {
+                    const b = document.body;
+                    if (!b) return false;
+                    b.classList.add(theme + "-mode");
+                    return true;
+                };
+
+                // Try immediately
+                if (addBodyClass()) return;
+
+                // Observe until body exists
+                const mo = new MutationObserver(() => {
+                    if (addBodyClass()) mo.disconnect();
                 });
-            }
+                mo.observe(document.documentElement, { childList: true, subtree: true });
+            })();
         })();
     </script>
-    
-    <!-- Critical CSS to prevent flash -->
-    <style>
-        :root[data-theme="dark"] {
-            --background-color: #202124;
-            --background-color-transparent: rgba(32, 33, 36, 0.6);
-            --second-background-color: #2d2e32;
-            --third-background-color: #34353a;
-            --third-background-color-transparent: rgba(32, 33, 36, 0.6);
-            --primary-color: #0066CC;
-            --first-text-color: #ffffff;
-            --second-text-color: #eeeeee;
-            --third-text-color: #bebec6;
-            --fourth-text-color: #999999;
-            --default-text-color: #bebec6;
-            --invert-text-color: #373D3F;
-            --border-color: rgba(255, 255, 255, 0.08);
-            --selection-color: #0066CC;
-            --shadow-color-1: rgba(255, 255, 255, 0.08);
-            --shadow-color-2: rgba(255, 255, 255, 0.05);
-        }
-        
-        :root[data-theme="light"] {
-            --background-color: #fff;
-            --background-color-transparent: rgba(255, 255, 255, 0.6);
-            --second-background-color: #f8f8f8;
-            --third-background-color: #f2f2f2;
-            --third-background-color-transparent: rgba(241, 241, 241, 0.6);
-            --primary-color: #0066CC;
-            --first-text-color: #16171a;
-            --second-text-color: #2f3037;
-            --third-text-color: #5e5e5e;
-            --fourth-text-color: #eeeeee;
-            --default-text-color: #373D3F;
-            --invert-text-color: #bebec6;
-            --border-color: rgba(0, 0, 0, 0.08);
-            --selection-color: #0066CC;
-            --shadow-color-1: rgba(0, 0, 0, 0.08);
-            --shadow-color-2: rgba(0, 0, 0, 0.05);
-        }
-        
-        body {
-            background-color: var(--background-color);
-            color: var(--default-text-color);
-        }
-        
-        /* Apply body classes as soon as DOM is ready */
-        :root[data-theme="dark"] body {
-            background-color: var(--background-color);
-            color: var(--default-text-color);
-        }
-    </style>
     
     <!-- preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -123,24 +78,23 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="http://blog.hgyjllk.top/2025/07/22/如何使用let-s-encrypt-certbot提供完全免费的https证书/"/>
+    <link rel="canonical" href="https://blog.hgyjllk.top/2025/07/22/如何使用let-s-encrypt-certbot提供完全免费的https证书/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
-    
     
     
         
         <meta name="description" content="我的个人博客">
 <meta property="og:type" content="article">
 <meta property="og:title" content="如何使用Let&#39;s Encrypt + Certbot提供完全免费的https证书">
-<meta property="og:url" content="http://blog.hgyjllk.top/2025/07/22/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Let-s-Encrypt-Certbot%E6%8F%90%E4%BE%9B%E5%AE%8C%E5%85%A8%E5%85%8D%E8%B4%B9%E7%9A%84https%E8%AF%81%E4%B9%A6/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:url" content="https://blog.hgyjllk.top/2025/07/22/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Let-s-Encrypt-Certbot%E6%8F%90%E4%BE%9B%E5%AE%8C%E5%85%A8%E5%85%8D%E8%B4%B9%E7%9A%84https%E8%AF%81%E4%B9%A6/index.html">
+<meta property="og:site_name" content="hgyjllk代码手记">
 <meta property="og:description" content="我的个人博客">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://blog.hgyjllk.top/images/og-image.webp">
+<meta property="og:image" content="https://blog.hgyjllk.top/images/og-image.webp">
 <meta property="article:published_time" content="2025-07-22T08:06:18.000Z">
-<meta property="article:modified_time" content="2026-10-02T09:03:01.573Z">
+<meta property="article:modified_time" content="2026-10-03T10:51:05.495Z">
 <meta property="article:author" content="hgyjllk">
 <meta property="article:tag" content="SSL">
 <meta property="article:tag" content="HTTPS">
@@ -148,7 +102,7 @@
 <meta property="article:tag" content="Apache">
 <meta property="article:tag" content="服务器运维">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://blog.hgyjllk.top/images/og-image.webp">
+<meta name="twitter:image" content="https://blog.hgyjllk.top/images/og-image.webp">
     
     
     <!--- Icon Part-->
@@ -197,8 +151,9 @@
 
     <script id="hexo-configurations">
     window.config = {"hostname":"blog.hgyjllk.top","root":"/","language":"zh-CN"};
-    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":["lv99"]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#005080","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":{"enable":true,"image":"/images/og-image.webp","description":"我的个人博客"},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/web_light.jpg","dark":"/images/web_dark.jpg"},"title":"HGYJLLK","subtitle":{"text":["Welcome"],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"github":"https://github.com/HGYJLLK","instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.8.5","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"代码仓库":{"path":"https://github.com/HGYJLLK","icon":"fa-brands fa-github"},"更多网站":{"path":"https://portal.jcygo.com/","icon":"fa-solid fa-globe"}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":{"归档":{"path":"/archives","icon":"fa-regular fa-archive"}}},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2024/4/18 00:00:00"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":["lv99"]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#005080","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":{"enable":true,"image":"/images/og-image.webp","description":"我的个人博客"},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/web_light.jpg","dark":"/images/web_dark.jpg"},"title":"HGYJLLK","subtitle":{"text":["Welcome"],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":[{"icon":"fa-brands fa-github","url":"https://github.com/HGYJLLK"},{"icon":"fa-brands fa-twitter","url":null},{"icon":"fa-solid fa-at","url":"you@example.com"},{"icon":"fa-brands fa-telegram","url":null},{"icon":"/images/custom-icon.svg","url":null}],"qrs":[{"icon":"fa-brands fa-weixin","qr":null},{"icon":"/images/custom-icon.svg","qr":null}]}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"11.4.1","theme":{"light":"default","dark":"dark"}}},"version":"2.9.0","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"代码仓库":{"path":"https://github.com/HGYJLLK","icon":"fa-brands fa-github"},"更多网站":{"path":"https://portal.jcygo.com/","icon":"fa-solid fa-globe"}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur","masonry":{"batch_size":12,"initial_batch_size":24}},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":{"归档":{"path":"/archives","icon":"fa-regular fa-archive"}}},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footer":{"runtime":true,"icon":"<i class=\"fa-solid fa-heart fa-beat\" style=\"--fa-animation-duration: 0.5s; color: #f54545\"></i>","start":"2024/4/18 00:00:00","statistics":true,"customize":null,"icp":{"enable":true,"number":"粤ICP备2024339439号-2","url":"https://beian.miit.gov.cn/"}},"footerStart":"2024/4/18 00:00:00","mermaid":{"style":{"light":"default","dark":"dark"}}};
     window.lang_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+    window.i18n = {"search":"站内搜索您需要的内容...","toc":"目录","prev":"上一页","next":"下一页","prev_posts":"上一篇","next_posts":"下一篇","page":"第 %d 页","recent_posts":"最新文章","share":"分享","powered_by":"由 %s 驱动","theme":"主题","rss_feed":"RSS Feed","category":"分类","categories":"分类","tag":"标签","tags":"标签","post":"文章","posts":"文章","tagcloud":"标签云","comment":"评论","comments":"评论","top":"置顶","sticky":"置顶","go-back-home":"回到首页","masonry_loading":"照片加载中...","image_viewer":"图片查看器","close":"关闭","exif":{"title":"EXIF","cards":{"camera":"相机","lens":"镜头","exposure":"曝光","other":"其他"},"fields":{"make":"品牌","model":"机型","date_taken":"拍摄时间","lens_model":"镜头","focal_length":"焦距","focus_mode":"对焦模式","shutter":"快门","aperture":"光圈","iso":"感光度","exposure_program":"曝光程序","exposure_compensation":"曝光补偿","metering_mode":"测光模式","flash":"闪光灯","white_balance":"白平衡","latitude":"纬度","longitude":"经度","altitude":"海拔"},"status":{"loading":"加载中...","no_exif":"无 EXIF 信息","library_missing":"EXIF 库未加载","image_source_missing":"图片地址不可用","unavailable":"EXIF 不可用（可能被 CORS 阻止或缺少元数据）","flag_unavailable":"EXIF 不可用"}},"home":"首页","archive":"归档","archives":"归档","about":"关于","links":"链接","link":"链接","friends":"友情链接","friend":"友情链接","timeline":"时间轴","shuoshuo":"说说","bookmarks":"书签","site_uv":"访问人数","site_pv":"总访问量","read_more":"阅读全文","wordcount":"字","min2read":"分钟","changelog":"更新日志","status":"状态","runtime":"博客已运行","days":"天","hours":"小时","minutes":"分钟","seconds":"秒","optimized_by":"并由 Evan 进行优化","rights":"版权所有","site_posts":"共撰写了 %s 篇文章","site_wordcount":"共 %s 字","copyright":{"title":"标题","author":"作者","link":"链接","create_time":"创建于","update_time":"更新于","license_title":"版权声明","license_content":"本文章采用 %s 进行许可。","all_rights_reserved":"版权所有 &#169 %s，禁止转载。","public_domain":"本文为公有领域作品，可自由转载、引用。"},"ago":{"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"},"create_time":"创建","update_time":"更新","expired":"这篇文章最后更新于 %s 天前，内容可能已经过时。"};
     window.data = {"masonry":false};
   </script>
     
@@ -220,7 +175,6 @@
     
     
 <meta name="generator" content="Hexo 7.3.0"></head>
-
 
 
 <body>
@@ -483,7 +437,7 @@
 
 		
 		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
-			<div class="avatar w-[46px] h-[46px] flex-shrink-0 rounded-medium border border-border-color p-[1px]">
+			<div class="avatar w-[46px] h-[46px] shrink-0 rounded-medium border border-border-color p-px">
 				<img src="/images/hgyjllk.ico">
 			</div>
 			<div class="info flex flex-col justify-between">
@@ -504,8 +458,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2026-10-02 17:03:01</span>
-            <span class="mobile">2026-10-02 17:03:01</span>
+            <span class="desktop">2026-10-03 18:51:05</span>
+            <span class="mobile">2026-10-03 18:51:05</span>
             <span class="hover-info">更新</span>
         </span>
     
@@ -580,19 +534,26 @@
 <li><strong>付费续期</strong>：证书到期后需要支付续费费用</li>
 <li><strong>手动更新</strong>：需要手动下载证书并更新服务器配置</li>
 <li><strong>管理复杂</strong>：多个域名需要分别购买和管理</li>
-<li><strong>有效期短</strong>：通常1年有效期，频繁续费</li>
+<li><strong>有效期短</strong>：免费证书有效期只有 90 天（3 个月），到期要手动下载并更新；付费证书也要定期续费</li>
 </ul>
 <h2 id="Let’s-Encrypt-Certbot的优点"><a href="#Let’s-Encrypt-Certbot的优点" class="headerlink" title="Let’s Encrypt + Certbot的优点"></a>Let’s Encrypt + Certbot的优点</h2><ul>
 <li><strong>完全免费</strong>：证书永久免费，无任何费用</li>
-<li><strong>自动续期</strong>：每3个月自动续期，无需人工干预</li>
+<li><strong>自动续期</strong>：证书有效期 90 天，Certbot 会在到期前自动续期，无需人工干预</li>
 <li><strong>自动配置</strong>：一条命令自动配置Apache&#x2F;Nginx</li>
 <li><strong>批量管理</strong>：可以同时管理多个域名</li>
 <li><strong>权威认证</strong>：被所有主流浏览器信任</li>
 </ul>
 <h2 id="实施步骤"><a href="#实施步骤" class="headerlink" title="实施步骤"></a>实施步骤</h2><h3 id="1-检查当前SSL配置状态"><a href="#1-检查当前SSL配置状态" class="headerlink" title="1. 检查当前SSL配置状态"></a>1. 检查当前SSL配置状态</h3><div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看Apache SSL配置</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">ls</span> -la /etc/apache2/sites-enabled/ | grep ssl</span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查现有Let&#x27;s Encrypt证书</span></span><br><span class="line"><span class="built_in">sudo</span> certbot certificates</span><br></pre></td></tr></table></figure></div>
 
-<h3 id="2-安装Certbot"><a href="#2-安装Certbot" class="headerlink" title="2. 安装Certbot"></a>2. 安装Certbot</h3><div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Ubuntu/Debian系统</span></span><br><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install certbot python3-certbot-apache</span><br><span class="line"></span><br><span class="line"><span class="comment"># CentOS/RHEL系统</span></span><br><span class="line"><span class="built_in">sudo</span> yum install certbot python3-certbot-apache</span><br></pre></td></tr></table></figure></div>
+<h3 id="2-安装Certbot"><a href="#2-安装Certbot" class="headerlink" title="2. 安装Certbot"></a>2. 安装Certbot</h3><p>Certbot 官方现在推荐用 snap 安装，这样能一直拿到官方维护的最新版，并且自动更新：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Ubuntu/Debian 系统</span></span><br><span class="line"><span class="built_in">sudo</span> apt update</span><br><span class="line"><span class="built_in">sudo</span> apt install snapd</span><br><span class="line"><span class="built_in">sudo</span> snap install --classic certbot</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">ln</span> -s /snap/bin/certbot /usr/bin/certbot</span><br></pre></td></tr></table></figure></div>
 
+<p>如果系统不方便用 snap，也可以用系统源安装，但版本会比较旧：</p>
+<div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Ubuntu/Debian 系统（系统源，版本较旧）</span></span><br><span class="line"><span class="built_in">sudo</span> apt install certbot python3-certbot-apache</span><br></pre></td></tr></table></figure></div>
+
+<blockquote>
+<p>原来这里还写了 CentOS 的 <code>yum</code> 命令。CentOS 已经停止维护，如果用的是 Rocky Linux、AlmaLinux 等 RHEL 系发行版，请参考 <a class="link"   target="_blank" rel="noopener" href="https://certbot.eff.org/instructions" >Certbot 官方安装说明<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>。</p>
+</blockquote>
 <h3 id="3-从阿里云SSL切换到Let’s-Encrypt"><a href="#3-从阿里云SSL切换到Let’s-Encrypt" class="headerlink" title="3. 从阿里云SSL切换到Let’s Encrypt"></a>3. 从阿里云SSL切换到Let’s Encrypt</h3><p><strong>识别问题</strong>：通过<code>curl -I https://yourdomain.com</code>发现证书过期错误：</p>
 <div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl: (60) SSL certificate problem: certificate has expired</span><br></pre></td></tr></table></figure></div>
 
@@ -613,6 +574,12 @@
 <h3 id="预期结果"><a href="#预期结果" class="headerlink" title="预期结果"></a>预期结果</h3><div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Server: Apache/2.4.41</span><br><span class="line">Strict-Transport-Security: max-age=31536000</span><br></pre></td></tr></table></figure></div>
 
 <p>这样就能拥有一个非常不错的完全免费且自动续期的SSL证书</p>
+<h2 id="补充：证书有效期会越来越短（2026-年更新）"><a href="#补充：证书有效期会越来越短（2026-年更新）" class="headerlink" title="补充：证书有效期会越来越短（2026 年更新）"></a>补充：证书有效期会越来越短（2026 年更新）</h2><p>行业规则正在缩短 SSL 证书的有效期，Let’s Encrypt 已经公布了时间表：</p>
+<ul>
+<li>2027 年 2 月 10 日起，默认证书有效期从 90 天缩短为 <strong>64 天</strong>；</li>
+<li>2028 年 2 月 16 日起，进一步缩短为 <strong>45 天</strong>。</li>
+</ul>
+<p>这只影响新签发的证书，Certbot 自动续期会照常工作。所以更要确认自动续期是正常的（上面第 5 步的 <code>certbot renew --dry-run</code>），<strong>不要依赖手动更新证书</strong>。</p>
 
 		</div>
 
@@ -627,7 +594,7 @@
         
             <li>
                 <strong>更新于
-                    :</strong> 2026-10-02 17:03:01
+                    :</strong> 2026-10-03 18:51:05
             </li>
         
         <li>
@@ -696,7 +663,7 @@
 			<div class="article-next border-border-color shadow-redefine-flat shadow-shadow-color-2 rounded-medium px-4 py-2 hover:shadow-redefine-flat-hover hover:shadow-shadow-color-2">
 				<a class="next" rel="next" href="/2025/05/10/%E5%A6%82%E4%BD%95%E7%BB%99%E4%BD%A0%E8%87%AA%E5%B7%B1%E9%83%A8%E7%BD%B2%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%89%E8%A3%85-IPV6%EF%BC%9F/">
 					<span class="title flex justify-center items-center">
-						<span class="post-nav-title-item truncate max-w-48">如何给你自己部署的服务器安装 IPV6？</span>
+						<span class="post-nav-title-item truncate max-w-48">如何在 Mac 上配置 IPv6 DDNS 实现公网访问</span>
 						<span class="post-nav-item">下一篇</span>
 					</span>
 					<span class="right arrow-icon flex justify-center items-center">
@@ -722,42 +689,116 @@
             
     <div id="giscus-container"></div>
     <script data-swup-reload-script defer>
-        async function loadGiscus() {
-            const giscusConfig = {
-                'src': 'https://giscus.app/client.js',
-                'data-repo': 'HGYJLLK/save_my_hexo_blog',
-                'data-repo-id': 'R_kgDOPQ0xbg',
-                'data-category': 'General',
-                'data-category-id': 'DIC_kwDOPQ0xbs4CuhA9',
-                'data-mapping': 'pathname',
-                'data-strict': '0',
-                'data-reactions-enabled': '1',
-                'data-emit-metadata': '1',
-                'data-theme': 'preferred_color_scheme',
-                'data-lang': 'zh-CN',
-                'data-input-position': 'bottom',
-                'data-loading': 'lazy',
-                'crossorigin': 'anonymous',
-                'async': true
-            }
-            const giscusScript = document.createElement('script');
-            for (const key in giscusConfig) {
-                giscusScript.setAttribute(key, giscusConfig[key]);
-            }
-            document.getElementById('giscus-container').appendChild(giscusScript);
-        }
-        if ('true') {
-            let loadGiscusTimeout = setTimeout(() => {
+        (function() {
+            const containerId = "giscus-container";
+            const mapping = "pathname";
+            const lang = "zh-CN";
+            const inputPosition = "bottom";
+            const reactionsEnabled = "1" === "1";
+            const emitMetadata = "1" === "1";
+            const strict = "0" === "1";
+            const loading = "lazy";
+
+            const getTerm = () => {
+                if (mapping === "pathname") return location.pathname;
+                if (mapping === "url") return location.href;
+                if (mapping === "title") return document.title;
+                if (mapping === "og:title") {
+                    const ogTitle = document.querySelector("meta[property='og:title']");
+                    return ogTitle?.content || document.title;
+                }
+                return "";
+            };
+
+            const sendUpdate = () => {
+                const iframe = document.querySelector("iframe.giscus-frame");
+                if (!iframe) {
+                    return;
+                }
+
+                const setConfig = {
+                    theme: "preferred_color_scheme",
+                    lang,
+                    inputPosition,
+                    reactionsEnabled,
+                    emitMetadata,
+                    strict,
+                };
+
+                if (mapping !== "number") {
+                    const term = getTerm();
+                    if (term) {
+                        setConfig.term = term;
+                    }
+                }
+
+                iframe.contentWindow.postMessage(
+                    { giscus: { setConfig } },
+                    "https://giscus.app",
+                );
+            };
+
+            const loadGiscus = () => {
+                const container = document.getElementById(containerId);
+                if (!container) {
+                    return;
+                }
+
+                const iframe = container.querySelector("iframe.giscus-frame");
+                if (iframe) {
+                    sendUpdate();
+                    return;
+                }
+
+                if (container.dataset.giscusInit === "true") {
+                    return;
+                }
+
+                const giscusConfig = {
+                    src: "https://giscus.app/client.js",
+                    "data-repo": "HGYJLLK/save_my_hexo_blog",
+                    "data-repo-id": "R_kgDOPQ0xbg",
+                    "data-category": "General",
+                    "data-category-id": "DIC_kwDOPQ0xbs4CuhA9",
+                    "data-mapping": mapping,
+                    "data-strict": "0",
+                    "data-reactions-enabled": "1",
+                    "data-emit-metadata": "1",
+                    "data-theme": "preferred_color_scheme",
+                    "data-lang": lang,
+                    "data-input-position": inputPosition,
+                    "data-loading": loading,
+                    crossorigin: "anonymous",
+                    async: true,
+                };
+
+                const giscusScript = document.createElement("script");
+                for (const key in giscusConfig) {
+                    giscusScript.setAttribute(key, giscusConfig[key]);
+                }
+                container.appendChild(giscusScript);
+                container.dataset.giscusInit = "true";
+            };
+
+            const runGiscus = () => {
+                const container = document.getElementById(containerId);
+                if (!container) {
+                    return;
+                }
+
+                if (container.querySelector("iframe.giscus-frame")) {
+                    sendUpdate();
+                    return;
+                }
+
                 loadGiscus();
-                clearTimeout(loadGiscusTimeout);
-            }, 1000);
-        } else {
-            document.addEventListener('DOMContentLoaded', loadGiscus);
-        }
+            };
+
+            runGiscus();
+        })();
     </script>
 
 
-        
         
     
 </div>
@@ -772,13 +813,14 @@
 	<div class="post-toc">
 		<div class="toc-title">目录</div>
 		<div class="page-title">如何使用Let&#39;s Encrypt + Certbot提供完全免费的https证书</div>
-		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Let%E2%80%99s-Encrypt-Certbot%E6%8F%90%E4%BE%9B%E5%AE%8C%E5%85%A8%E5%85%8D%E8%B4%B9%E7%9A%84https%E8%AF%81%E4%B9%A6"><span class="nav-text">如何使用Let’s Encrypt + Certbot提供完全免费的https证书</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%98%BF%E9%87%8C%E4%BA%91SSL%E7%9A%84%E7%BC%BA%E7%82%B9"><span class="nav-text">阿里云SSL的缺点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Let%E2%80%99s-Encrypt-Certbot%E7%9A%84%E4%BC%98%E7%82%B9"><span class="nav-text">Let’s Encrypt + Certbot的优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E6%96%BD%E6%AD%A5%E9%AA%A4"><span class="nav-text">实施步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%A3%80%E6%9F%A5%E5%BD%93%E5%89%8DSSL%E9%85%8D%E7%BD%AE%E7%8A%B6%E6%80%81"><span class="nav-text">1. 检查当前SSL配置状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%AE%89%E8%A3%85Certbot"><span class="nav-text">2. 安装Certbot</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E4%BB%8E%E9%98%BF%E9%87%8C%E4%BA%91SSL%E5%88%87%E6%8D%A2%E5%88%B0Let%E2%80%99s-Encrypt"><span class="nav-text">3. 从阿里云SSL切换到Let’s Encrypt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E6%89%B9%E9%87%8F%E7%94%B3%E8%AF%B7Let%E2%80%99s-Encrypt%E8%AF%81%E4%B9%A6"><span class="nav-text">4. 批量申请Let’s Encrypt证书</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E9%85%8D%E7%BD%AE%E8%87%AA%E5%8A%A8%E7%BB%AD%E6%9C%9F"><span class="nav-text">5. 配置自动续期</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E9%AA%8C%E8%AF%81"><span class="nav-text">配置验证</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A3%80%E6%9F%A5%E8%AF%81%E4%B9%A6%E7%8A%B6%E6%80%81"><span class="nav-text">检查证书状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%84%E6%9C%9F%E7%BB%93%E6%9E%9C"><span class="nav-text">预期结果</span></a></li></ol></li></ol></li></ol>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Let%E2%80%99s-Encrypt-Certbot%E6%8F%90%E4%BE%9B%E5%AE%8C%E5%85%A8%E5%85%8D%E8%B4%B9%E7%9A%84https%E8%AF%81%E4%B9%A6"><span class="nav-text">如何使用Let’s Encrypt + Certbot提供完全免费的https证书</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%98%BF%E9%87%8C%E4%BA%91SSL%E7%9A%84%E7%BC%BA%E7%82%B9"><span class="nav-text">阿里云SSL的缺点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Let%E2%80%99s-Encrypt-Certbot%E7%9A%84%E4%BC%98%E7%82%B9"><span class="nav-text">Let’s Encrypt + Certbot的优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E6%96%BD%E6%AD%A5%E9%AA%A4"><span class="nav-text">实施步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%A3%80%E6%9F%A5%E5%BD%93%E5%89%8DSSL%E9%85%8D%E7%BD%AE%E7%8A%B6%E6%80%81"><span class="nav-text">1. 检查当前SSL配置状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%AE%89%E8%A3%85Certbot"><span class="nav-text">2. 安装Certbot</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E4%BB%8E%E9%98%BF%E9%87%8C%E4%BA%91SSL%E5%88%87%E6%8D%A2%E5%88%B0Let%E2%80%99s-Encrypt"><span class="nav-text">3. 从阿里云SSL切换到Let’s Encrypt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E6%89%B9%E9%87%8F%E7%94%B3%E8%AF%B7Let%E2%80%99s-Encrypt%E8%AF%81%E4%B9%A6"><span class="nav-text">4. 批量申请Let’s Encrypt证书</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E9%85%8D%E7%BD%AE%E8%87%AA%E5%8A%A8%E7%BB%AD%E6%9C%9F"><span class="nav-text">5. 配置自动续期</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E9%AA%8C%E8%AF%81"><span class="nav-text">配置验证</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A3%80%E6%9F%A5%E8%AF%81%E4%B9%A6%E7%8A%B6%E6%80%81"><span class="nav-text">检查证书状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%84%E6%9C%9F%E7%BB%93%E6%9E%9C"><span class="nav-text">预期结果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A5%E5%85%85%EF%BC%9A%E8%AF%81%E4%B9%A6%E6%9C%89%E6%95%88%E6%9C%9F%E4%BC%9A%E8%B6%8A%E6%9D%A5%E8%B6%8A%E7%9F%AD%EF%BC%882026-%E5%B9%B4%E6%9B%B4%E6%96%B0%EF%BC%89"><span class="nav-text">补充：证书有效期会越来越短（2026 年更新）</span></a></li></ol></li></ol>
 
 	</div>
 </div>
 	</div>
 	
 </div>
+
 			</div>
 
 			
@@ -824,7 +866,7 @@
         
         <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
             <span class="lg:block text-sm">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a> 驱动</span>
-            <span class="text-sm lg:block">主题&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.8.5</a></span>
+            <span class="text-sm lg:block">主题&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.9.0</a></span>
         </div>
         
             <div class="icp-info my-1"><a target="_blank" rel="nofollow" href="
@@ -924,9 +966,43 @@
 </div>
 	</div>
 
-	<div class="image-viewer-container">
-	<img src="">
+	<div class="image-viewer-container" role="dialog" aria-modal="true" aria-label="图片查看器">
+	<button class="image-viewer-close" type="button" aria-label="关闭">
+		<i class="fa-solid fa-xmark"></i>
+	</button>
+	<button class="image-viewer-prev" type="button" aria-label="上一页">
+		<i class="fa-solid fa-chevron-left"></i>
+	</button>
+	<div class="image-viewer-frame">
+		<img src="" alt="">
+	</div>
+	<div class="image-viewer-exif-panel hidden absolute left-1/2 bottom-20 -translate-x-1/2 w-[min(92vw,420px)] max-h-[60vh] overflow-hidden rounded-2xl bg-background-color-transparent-80 p-4 text-left shadow-redefine-flat backdrop-blur-md" role="dialog" aria-label="EXIF" aria-hidden="true">
+		<div class="flex items-center justify-between mb-3">
+			<span class="text-sm font-semibold text-first-text-color">EXIF</span>
+			<button class="image-viewer-exif-close flex h-8 w-8 items-center justify-center rounded-full bg-background-color-transparent-80 text-first-text-color transition hover:bg-background-color-transparent-40" type="button" aria-label="关闭">
+				<i class="fa-solid fa-xmark text-[0.65rem]"></i>
+			</button>
+		</div>
+		<div class="image-viewer-exif-cards grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto pr-1 scrollbar-hide"></div>
+		<template class="image-viewer-exif-card-template">
+			<div class="rounded-lg bg-background-color-transparent-40 px-3 py-2">
+				<div class="image-viewer-exif-card-header flex items-center gap-2 mb-1">
+					<i class="image-viewer-exif-card-icon fa-solid fa-circle-info text-xs text-third-text-color"></i>
+					<div class="image-viewer-exif-card-title text-xs font-semibold text-first-text-color"></div>
+				</div>
+				<div class="image-viewer-exif-card-items flex flex-col gap-1"></div>
+			</div>
+		</template>
+	</div>
+	<button class="image-viewer-exif-toggle flex items-center gap-2 hidden absolute left-1/2 bottom-6 -translate-x-1/2 rounded-full border border-border-color bg-background-color-transparent-80 px-4 py-2 text-first-text-color backdrop-blur-md transition hover:bg-background-color-transparent-40" type="button" aria-label="EXIF" aria-expanded="false">
+		<i class="fa-solid fa-circle-info text-xs"></i>
+		<span class="text-xs font-semibold uppercase tracking-wider">EXIF</span>
+	</button>
+	<button class="image-viewer-next" type="button" aria-label="下一页">
+		<i class="fa-solid fa-chevron-right"></i>
+	</button>
 </div>
+
 
 	
 
@@ -947,7 +1023,7 @@
 <script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
 
 <script>
-    const swup = new Swup({
+    window.swup = new Swup({
         plugins: [
             new SwupScriptsPlugin({
                 optin: true,
@@ -963,44 +1039,23 @@
         ],
         containers: ["#swup"],
     });
+
+    window.dispatchEvent(
+        new CustomEvent("redefine:swup:ready", {
+            detail: {
+                swup: window.swup,
+            },
+        }),
+    );
 </script>
 
 
 
 
 	
-<script src="/js/build/tools/imageViewer.js" type="module"></script>
-
-<script src="/js/build/utils.js" type="module"></script>
-
 <script src="/js/build/main.js" type="module"></script>
 
-<script src="/js/build/layouts/navbarShrink.js" type="module"></script>
 
-<script src="/js/build/tools/scrollTopBottom.js" type="module"></script>
-
-<script src="/js/build/tools/lightDarkSwitch.js" type="module"></script>
-
-<script src="/js/build/layouts/categoryList.js" type="module"></script>
-
-
-
-
-
-    
-<script src="/js/build/tools/codeBlock.js" type="module"></script>
-
-
-
-
-    
-<script src="/js/build/layouts/lazyload.js" type="module"></script>
-
-
-
-
-    
-<script src="/js/build/tools/runtime.js"></script>
 
     
 <script src="/js/build/libs/odometer.min.js"></script>
@@ -1011,42 +1066,22 @@
 
 
 
+
+
+
   
 <script src="/js/build/libs/Typed.min.js"></script>
 
-  
-<script src="/js/build/plugins/typed.js" type="module"></script>
 
 
 
 
 
-
-
-
-    
-<script src="/js/build/libs/anime.min.js"></script>
-
-
-
-
-
-    
-<script src="/js/build/tools/tocToggle.js" type="module" data-swup-reload-script=""></script>
-
-<script src="/js/build/layouts/toc.js" type="module" data-swup-reload-script=""></script>
-
-<script src="/js/build/plugins/tabs.js" type="module" data-swup-reload-script=""></script>
 
 
 
 
 <script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
-
-
-<script src="/js/build/layouts/essays.js" type="module" data-swup-reload-script=""></script>
-
-
 
 
 
