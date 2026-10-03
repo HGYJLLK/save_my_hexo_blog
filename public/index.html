@@ -617,26 +617,15 @@
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
                         <a href="/2026/10/03/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%8E%A5%E5%85%A5%E9%98%BF%E9%87%8C%E4%BA%91-OSS-%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8/">
-                            微信小程序接入阿里云 OSS：什么功能对应用到 OSS 的什么能力
+                            微信小程序接入阿里云 OSS 对象存储：跑腿小程序里哪些功能用到了它
                         </a>
                     </h3>
 
                     <div class="home-article-content markdown-body">
                         
                             
-                            小程序加管理后台的项目，涉及图片上传、文件存放的地方都可以交给阿里云 OSS。这篇不讲项目细节，只讲一件事：业务里的每个功能，分别对应用到 OSS 的哪项能力，以及要怎么配。
-功能和 OSS 能力对照
-
-
-业务功能
-用到的 OSS 能力
-怎么配
-
-
-
-小程序里用户上传图片
-服务端上传：小程序把文件传给自己的后端，后端用 SDK 写进 Bucket
-后端配置 Bucket、地域和 RAM 子账...
+                            我们有一个校园跑腿类的微信小程序（小程序 + 管理后台 + Midway 后端）。上线前梳理外部依赖时，我把代码里所有用到阿里云 OSS 的地方过了一遍。这篇先讲项目里哪些功能会用到 OSS，再讲怎么配，最后讲一个我在代码里发现的问题：为什么最好准备两个 Bucket。
+一、项目里哪些功能会用到 OSS小程序端：用户上传的图片小程序里所有上传都走同一个 upload() 方法：先传到我们自己...
                         
                     </div>
 
@@ -691,7 +680,7 @@
         
     </div>
 
-    <a href="/2026/10/03/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%8E%A5%E5%85%A5%E9%98%BF%E9%87%8C%E4%BA%91-OSS-%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8/">阅读全文<span class="seo-reader-text">微信小程序接入阿里云 OSS：什么功能对应用到 OSS 的什么能力</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+    <a href="/2026/10/03/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%8E%A5%E5%85%A5%E9%98%BF%E9%87%8C%E4%BA%91-OSS-%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8/">阅读全文<span class="seo-reader-text">微信小程序接入阿里云 OSS 对象存储：跑腿小程序里哪些功能用到了它</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>
