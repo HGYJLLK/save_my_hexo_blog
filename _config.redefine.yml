@@ -176,7 +176,7 @@ navbar:
       icon: fa-brands fa-github
     更多网站:
       path: https://portal.jcygo.com/
-      icon: fa-solid fa-heart-pulse
+      icon: fa-solid fa-globe
 
   # 搜索功能(需要安装hexo-generator-searchdb插件)
   search:
