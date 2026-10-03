@@ -1,5 +1,5 @@
 ---
-title: 阿里企业邮箱开通与 SMTP 发信完整流程（含 526 Authentication failure 解决）
+title: 阿里企业邮箱开通与 SMTP 发信完整流程
 date: 2026-10-02 20:00:00
 tags: [阿里企业邮箱, SMTP, 邮件, 服务器运维]
 categories: [服务器运维]
@@ -98,18 +98,11 @@ SMTP_FROM=hi@jcygo.com
 
 排查工具：网页邮箱里「设置 → 日志查询 → 登录日志」，能看到每次登录的来源 IP 和成败，先确认请求到没到、是被谁拒绝的。
 
-## 安全提醒：别把密码写进文档
+## 相关链接
 
-这次还顺带发现，我们的交接文档里写进了明文的 `SMTP_PASS`。它虽然不是登录密码，但拿到它依然可以用这个邮箱发信。建议：
-
-1. 文档里的明文密码删掉，密码只保留在服务器的 `.env` 里；
-2. 保险起见，把这条三方密码重新生成一次，再更新 `.env`；
-3. 排查时也要留意搜索或日志输出会不会把密码打印出来。
-
-## 小结
-
-- 前提：阿里云服务器 + 企业备案，邮箱是买 `.com` 域名送的；
-- 先在域后台「安全管理 → 账号安全 → 访问策略」关掉「禁止使用三方客户端」；
-- 建一个普通账号，注销管理员，用 `hi@jcygo.com` 登录才能生成三方密码；
-- SMTP：`smtp.qiye.aliyun.com:465`，用户名写完整邮箱，密码用三方密码；
-- 密码只放 `.env`，别写进文档和仓库。
+- [阿里云邮箱控制台](https://alimail.console.aliyun.com/)：查看产品、到期时间和续费
+- [域管理后台](https://mail.jcygo.com/admin/#/home)：访问策略、密码策略都在这里
+- [网页邮箱登录页](https://mail.jcygo.com/alimail/auth/login)
+- [账户安全页（生成三方客户端密码）](https://mail.jcygo.com/alimail/entries/v5.1/setting/account-security)
+- [官方文档：三方客户端访问策略与安全密码](https://help.aliyun.com/zh/document_detail/606337.html)
+- [官方文档：开启三方客户端安全密码](https://help.aliyun.com/zh/document_detail/444380.html)

@@ -133,14 +133,14 @@
         
         <meta name="description" content="我的个人博客">
 <meta property="og:type" content="article">
-<meta property="og:title" content="阿里企业邮箱开通与 SMTP 发信完整流程（含 526 Authentication failure 解决）">
+<meta property="og:title" content="阿里企业邮箱开通与 SMTP 发信完整流程">
 <meta property="og:url" content="http://blog.hgyjllk.top/2026/10/02/%E9%98%BF%E9%87%8C%E4%BC%81%E4%B8%9A%E9%82%AE%E7%AE%B1-SMTP-%E5%8F%91%E4%BF%A1%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="我的个人博客">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://blog.hgyjllk.top/images/og-image.webp">
 <meta property="article:published_time" content="2026-10-02T12:00:00.000Z">
-<meta property="article:modified_time" content="2026-10-03T04:51:35.290Z">
+<meta property="article:modified_time" content="2026-10-03T05:00:34.509Z">
 <meta property="article:author" content="hgyjllk">
 <meta property="article:tag" content="服务器运维">
 <meta property="article:tag" content="阿里企业邮箱">
@@ -159,7 +159,7 @@
     
     <title>
         
-            阿里企业邮箱开通与 SMTP 发信完整流程（含 526 Authentication failure 解决） | HGYJLLKのBLOG
+            阿里企业邮箱开通与 SMTP 发信完整流程 | HGYJLLKのBLOG
         
     </title>
 
@@ -196,7 +196,7 @@
 
     <script id="hexo-configurations">
     window.config = {"hostname":"blog.hgyjllk.top","root":"/","language":"zh-CN"};
-    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":["lv99"]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#005080","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":{"enable":true,"image":"/images/og-image.webp","description":"我的个人博客"},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/web_light.jpg","dark":"/images/web_dark.jpg"},"title":"HGYJLLK","subtitle":{"text":["Welcome"],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"github":"https://github.com/HGYJLLK","instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.8.5","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"Archives":{"path":"/archives","icon":"fa-regular fa-archive"},"GitHub":{"path":"https://github.com/HGYJLLK","icon":"fa-brands fa-github"},"Heartbeat":{"path":"https://portal.jcygo.com/","icon":"fa-solid fa-heart-pulse"}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":{"归档":{"path":"/archives","icon":"fa-regular fa-archive"}}},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2024/4/18 00:00:00"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":["lv99"]},"code_block":{"copy":true,"style":"mac","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#005080","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":false,"custom_message":null},"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":{"enable":true,"image":"/images/og-image.webp","description":"我的个人博客"},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/web_light.jpg","dark":"/images/web_dark.jpg"},"title":"HGYJLLK","subtitle":{"text":["Welcome"],"hitokoto":{"enable":false,"show_author":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":{"github":"https://github.com/HGYJLLK","instagram":null,"zhihu":null,"twitter":null,"email":null},"qrs":{"weixin":null}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"11.4.1"}},"version":"2.8.5","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"},"首页":{"path":"/","icon":"fa-regular fa-house"},"归档":{"path":"/archives","icon":"fa-regular fa-archive"},"代码仓库":{"path":"https://github.com/HGYJLLK","icon":"fa-brands fa-github"},"更多网站":{"path":"https://portal.jcygo.com/","icon":"fa-solid fa-heart-pulse"}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":{"归档":{"path":"/archives","icon":"fa-regular fa-archive"}}},"article_date_format":"auto","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2024/4/18 00:00:00"};
     window.lang_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
     window.data = {"masonry":false};
   </script>
@@ -283,6 +283,23 @@
                             <li class="navbar-item">
                                 <!-- Menu -->
                                 <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    首页
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
                                    href="/archives"
                                         >
                                     <i class="fa-regular fa-archive fa-fw"></i>
@@ -303,7 +320,7 @@
                                    target="_blank" rel="noopener" href="https://github.com/HGYJLLK"
                                         >
                                     <i class="fa-brands fa-github fa-fw"></i>
-                                    GITHUB
+                                    代码仓库
                                     
                                 </a>
 
@@ -320,7 +337,7 @@
                                    target="_blank" rel="noopener" href="https://portal.jcygo.com/"
                                         >
                                     <i class="fa-solid fa-heart-pulse fa-fw"></i>
-                                    HEARTBEAT
+                                    更多网站
                                     
                                 </a>
 
@@ -371,6 +388,26 @@
                     <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
                         
                         <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                首页
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
                            href="/archives"
                         >
                             <span>
@@ -394,7 +431,7 @@
                            target="_blank" rel="noopener" href="https://github.com/HGYJLLK"
                         >
                             <span>
-                                GITHUB
+                                代码仓库
                             </span>
                             
                                 <i class="fa-brands fa-github fa-sm fa-fw"></i>
@@ -414,7 +451,7 @@
                            target="_blank" rel="noopener" href="https://portal.jcygo.com/"
                         >
                             <span>
-                                HEARTBEAT
+                                更多网站
                             </span>
                             
                                 <i class="fa-solid fa-heart-pulse fa-sm fa-fw"></i>
@@ -430,15 +467,6 @@
             
                 
                     
-                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
-                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
-                           href="/archives"
-                        >
-                            <span>归档</span>
-                            <i class="fa-regular fa-archive fa-sm fa-fw"></i>
-                        </a>
-                    </li>
-                
             
         </ul>
 
@@ -475,7 +503,7 @@
 		<div class="article-title relative w-full">
 			
 			<div class="w-full flex items-center pt-6 justify-start">
-				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">阿里企业邮箱开通与 SMTP 发信完整流程（含 526 Authentication failure 解决）</h1>
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">阿里企业邮箱开通与 SMTP 发信完整流程</h1>
 			</div>
 			
 		</div>
@@ -503,8 +531,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2026-10-03 12:51:35</span>
-            <span class="mobile">2026-10-03 12:51:35</span>
+            <span class="desktop">2026-10-03 13:34</span>
+            <span class="mobile">2026-10-03 13:34</span>
             <span class="hover-info">更新</span>
         </span>
     
@@ -591,7 +619,7 @@
 <p><strong>策略改完大约 5 分钟后才生效</strong>，别改完马上测试。</p>
 <p>如果你的账号开了「强制启用安全密码」（后台「安全管理 → 账号安全 → 密码策略」里的开关，可以设置生效范围），那么员工只能用安全密码登录三方客户端，这也是后面第 4 步必须生成三方密码的原因。</p>
 <h3 id="2-创建一个员工-运维账号，用来当发信账号"><a href="#2-创建一个员工-运维账号，用来当发信账号" class="headerlink" title="2. 创建一个员工 &#x2F; 运维账号，用来当发信账号"></a>2. 创建一个员工 &#x2F; 运维账号，用来当发信账号</h3><p>在后台「组织与用户」里创建一个员工账号（也可以叫运维账号），把邮箱地址设为我们要用的 <code>hi@jcygo.com</code>。</p>
-<h3 id="3-注销管理员，改用-hi-jcygo-com-登录"><a href="#3-注销管理员，改用-hi-jcygo-com-登录" class="headerlink" title="3. 注销管理员，改用 hi@jcygo.com 登录"></a>3. 注销管理员，改用 <a class="link"   href="mailto:&#x68;&#x69;&#64;&#x6a;&#99;&#x79;&#103;&#111;&#46;&#x63;&#x6f;&#x6d;" >hi@jcygo.com<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> 登录</h3><p>这一步很关键。先把当前的管理员账号退出，然后打开网页邮箱登录页：</p>
+<h3 id="3-注销管理员，改用-hi-jcygo-com-登录"><a href="#3-注销管理员，改用-hi-jcygo-com-登录" class="headerlink" title="3. 注销管理员，改用 hi@jcygo.com 登录"></a>3. 注销管理员，改用 <a class="link"   href="mailto:&#104;&#x69;&#x40;&#106;&#x63;&#121;&#103;&#x6f;&#x2e;&#x63;&#x6f;&#109;" >hi@jcygo.com<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> 登录</h3><p>这一步很关键。先把当前的管理员账号退出，然后打开网页邮箱登录页：</p>
 <p><code>https://mail.jcygo.com/alimail/auth/login</code></p>
 <p>用刚创建的 <code>hi@jcygo.com</code> 登录（首次登录会让你改密码、绑定手机等）。</p>
 <h3 id="4-生成「三方客户端安全密码」"><a href="#4-生成「三方客户端安全密码」" class="headerlink" title="4. 生成「三方客户端安全密码」"></a>4. 生成「三方客户端安全密码」</h3><p>登录 <code>hi@jcygo.com</code> 之后，进入：</p>
@@ -620,18 +648,13 @@
 <li>访问策略刚改完，还没过 5 分钟。</li>
 </ol>
 <p>排查工具：网页邮箱里「设置 → 日志查询 → 登录日志」，能看到每次登录的来源 IP 和成败，先确认请求到没到、是被谁拒绝的。</p>
-<h2 id="安全提醒：别把密码写进文档"><a href="#安全提醒：别把密码写进文档" class="headerlink" title="安全提醒：别把密码写进文档"></a>安全提醒：别把密码写进文档</h2><p>这次还顺带发现，我们的交接文档里写进了明文的 <code>SMTP_PASS</code>。它虽然不是登录密码，但拿到它依然可以用这个邮箱发信。建议：</p>
-<ol>
-<li>文档里的明文密码删掉，密码只保留在服务器的 <code>.env</code> 里；</li>
-<li>保险起见，把这条三方密码重新生成一次，再更新 <code>.env</code>；</li>
-<li>排查时也要留意搜索或日志输出会不会把密码打印出来。</li>
-</ol>
-<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><ul>
-<li>前提：阿里云服务器 + 企业备案，邮箱是买 <code>.com</code> 域名送的；</li>
-<li>先在域后台「安全管理 → 账号安全 → 访问策略」关掉「禁止使用三方客户端」；</li>
-<li>建一个普通账号，注销管理员，用 <code>hi@jcygo.com</code> 登录才能生成三方密码；</li>
-<li>SMTP：<code>smtp.qiye.aliyun.com:465</code>，用户名写完整邮箱，密码用三方密码；</li>
-<li>密码只放 <code>.env</code>，别写进文档和仓库。</li>
+<h2 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h2><ul>
+<li><a class="link"   target="_blank" rel="noopener" href="https://alimail.console.aliyun.com/" >阿里云邮箱控制台<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>：查看产品、到期时间和续费</li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://mail.jcygo.com/admin/#/home" >域管理后台<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>：访问策略、密码策略都在这里</li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://mail.jcygo.com/alimail/auth/login" >网页邮箱登录页<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://mail.jcygo.com/alimail/entries/v5.1/setting/account-security" >账户安全页（生成三方客户端密码）<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://help.aliyun.com/zh/document_detail/606337.html" >官方文档：三方客户端访问策略与安全密码<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
+<li><a class="link"   target="_blank" rel="noopener" href="https://help.aliyun.com/zh/document_detail/444380.html" >官方文档：开启三方客户端安全密码<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
 </ul>
 
 		</div>
@@ -640,14 +663,14 @@
 		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
 			<div class="article-copyright-info-container">
     <ul>
-        <li><strong>标题:</strong> 阿里企业邮箱开通与 SMTP 发信完整流程（含 526 Authentication failure 解决）</li>
+        <li><strong>标题:</strong> 阿里企业邮箱开通与 SMTP 发信完整流程</li>
         <li><strong>作者:</strong> HGYJLLK</li>
         <li><strong>创建于
                 :</strong> 2026-10-02 20:00:00</li>
         
             <li>
                 <strong>更新于
-                    :</strong> 2026-10-03 12:51:35
+                    :</strong> 2026-10-03 13:00:34
             </li>
         
         <li>
@@ -775,8 +798,8 @@
 		<div class="post-toc-wrap">
 	<div class="post-toc">
 		<div class="toc-title">目录</div>
-		<div class="page-title">阿里企业邮箱开通与 SMTP 发信完整流程（含 526 Authentication failure 解决）</div>
-		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E7%BD%AE%E6%9D%A1%E4%BB%B6%EF%BC%9A%E4%BD%A0%E5%BE%97%E5%85%88%E6%9C%89%E8%BF%99%E4%B8%AA%E9%82%AE%E7%AE%B1"><span class="nav-text">前置条件：你得先有这个邮箱</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B4%E4%BD%93%E6%80%9D%E8%B7%AF"><span class="nav-text">整体思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4"><span class="nav-text">步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E8%BF%9B%E5%85%A5%E5%9F%9F%E7%AE%A1%E7%90%86%E5%90%8E%E5%8F%B0%EF%BC%8C%E5%85%B3%E6%8E%89%E3%80%8C%E7%A6%81%E6%AD%A2%E4%B8%89%E6%96%B9%E5%AE%A2%E6%88%B7%E7%AB%AF%E3%80%8D"><span class="nav-text">1. 进入域管理后台，关掉「禁止三方客户端」</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%91%98%E5%B7%A5-%E8%BF%90%E7%BB%B4%E8%B4%A6%E5%8F%B7%EF%BC%8C%E7%94%A8%E6%9D%A5%E5%BD%93%E5%8F%91%E4%BF%A1%E8%B4%A6%E5%8F%B7"><span class="nav-text">2. 创建一个员工 &#x2F; 运维账号，用来当发信账号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%B3%A8%E9%94%80%E7%AE%A1%E7%90%86%E5%91%98%EF%BC%8C%E6%94%B9%E7%94%A8-hi-jcygo-com-%E7%99%BB%E5%BD%95"><span class="nav-text">3. 注销管理员，改用 hi@jcygo.com 登录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E7%94%9F%E6%88%90%E3%80%8C%E4%B8%89%E6%96%B9%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%AE%89%E5%85%A8%E5%AF%86%E7%A0%81%E3%80%8D"><span class="nav-text">4. 生成「三方客户端安全密码」</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E6%8A%8A%E5%AF%86%E7%A0%81%E5%A1%AB%E8%BF%9B%E6%9C%8D%E5%8A%A1%E7%9A%84-env"><span class="nav-text">5. 把密码填进服务的 .env</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E6%8A%A5%E9%94%99%EF%BC%9A526-Authentication-failure"><span class="nav-text">常见报错：526 Authentication failure</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E6%8F%90%E9%86%92%EF%BC%9A%E5%88%AB%E6%8A%8A%E5%AF%86%E7%A0%81%E5%86%99%E8%BF%9B%E6%96%87%E6%A1%A3"><span class="nav-text">安全提醒：别把密码写进文档</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-text">小结</span></a></li></ol>
+		<div class="page-title">阿里企业邮箱开通与 SMTP 发信完整流程</div>
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E7%BD%AE%E6%9D%A1%E4%BB%B6%EF%BC%9A%E4%BD%A0%E5%BE%97%E5%85%88%E6%9C%89%E8%BF%99%E4%B8%AA%E9%82%AE%E7%AE%B1"><span class="nav-text">前置条件：你得先有这个邮箱</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B4%E4%BD%93%E6%80%9D%E8%B7%AF"><span class="nav-text">整体思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4"><span class="nav-text">步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E8%BF%9B%E5%85%A5%E5%9F%9F%E7%AE%A1%E7%90%86%E5%90%8E%E5%8F%B0%EF%BC%8C%E5%85%B3%E6%8E%89%E3%80%8C%E7%A6%81%E6%AD%A2%E4%B8%89%E6%96%B9%E5%AE%A2%E6%88%B7%E7%AB%AF%E3%80%8D"><span class="nav-text">1. 进入域管理后台，关掉「禁止三方客户端」</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%91%98%E5%B7%A5-%E8%BF%90%E7%BB%B4%E8%B4%A6%E5%8F%B7%EF%BC%8C%E7%94%A8%E6%9D%A5%E5%BD%93%E5%8F%91%E4%BF%A1%E8%B4%A6%E5%8F%B7"><span class="nav-text">2. 创建一个员工 &#x2F; 运维账号，用来当发信账号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%B3%A8%E9%94%80%E7%AE%A1%E7%90%86%E5%91%98%EF%BC%8C%E6%94%B9%E7%94%A8-hi-jcygo-com-%E7%99%BB%E5%BD%95"><span class="nav-text">3. 注销管理员，改用 hi@jcygo.com 登录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E7%94%9F%E6%88%90%E3%80%8C%E4%B8%89%E6%96%B9%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%AE%89%E5%85%A8%E5%AF%86%E7%A0%81%E3%80%8D"><span class="nav-text">4. 生成「三方客户端安全密码」</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E6%8A%8A%E5%AF%86%E7%A0%81%E5%A1%AB%E8%BF%9B%E6%9C%8D%E5%8A%A1%E7%9A%84-env"><span class="nav-text">5. 把密码填进服务的 .env</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E6%8A%A5%E9%94%99%EF%BC%9A526-Authentication-failure"><span class="nav-text">常见报错：526 Authentication failure</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E9%93%BE%E6%8E%A5"><span class="nav-text">相关链接</span></a></li></ol>
 
 	</div>
 </div>

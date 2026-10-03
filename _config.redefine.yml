@@ -165,16 +165,16 @@ navbar:
     pages: 1000px     # 其他页面宽度
   # 导航链接
   links:
-    Home:
+    首页:
       path: /
       icon: fa-regular fa-house
-    Archives: 
-      path: /archives 
+    归档:
+      path: /archives
       icon: fa-regular fa-archive
-    GitHub:
+    代码仓库:
       path: https://github.com/HGYJLLK
       icon: fa-brands fa-github
-    Heartbeat:
+    更多网站:
       path: https://portal.jcygo.com/
       icon: fa-solid fa-heart-pulse
 
