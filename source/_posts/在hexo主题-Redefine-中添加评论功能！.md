@@ -107,7 +107,7 @@ hexo clean
 hexo generate
 ```
 
-然后把生成的 `public/` 目录部署到你的服务器上。如果你在 `_config.yml` 里配置了 `deploy`，也可以用 `hexo deploy` 一键部署；我的 `deploy.type` 是空的，所以是用 `rsync` 把 `public/` 上传到服务器的。
+然后把生成的 `public/` 目录部署到你的服务器上。~~原来这里写的是 `hexo deploy`~~，但我的 `_config.yml` 里 `deploy.type` 是空的，这条命令不会生效，实际是用 `rsync` 把 `public/` 上传到服务器的。如果你在 `_config.yml` 里配置了 `deploy`，才可以用 `hexo deploy` 一键部署。
 
 部署完成后，访问任意博客文章页面，应该能看到Giscus评论组件。使用GitHub账号登录即可测试评论功能。
 

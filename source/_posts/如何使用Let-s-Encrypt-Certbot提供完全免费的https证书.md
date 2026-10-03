@@ -66,7 +66,7 @@ sudo apt install certbot python3-certbot-apache
 curl: (60) SSL certificate problem: certificate has expired
 ```
 
-**检查配置文件**：发现Apache使用的是过期的阿里云证书路径：
+**检查配置文件**：发现Apache使用的是过期的阿里云证书路径（~~这种手动下载证书的方式~~已被下面的 Certbot 自动签发取代）：
 ```apache
 SSLCertificateFile /etc/ssl/aliyun/domain_public.crt
 SSLCertificateKeyFile /etc/ssl/aliyun/domain.key

@@ -93,7 +93,9 @@ hexo s
 npm install hexo-theme-redefine@latest
 ```
 
-> 原来这里写的是 `git clone` 到 `themes/redefine`。现在更推荐用 npm 安装：升级只要更新版本号，仓库里也不用保存整个主题。注意不要留一个空的 `themes/redefine` 目录，它会盖住 npm 安装的主题，导致生成的页面全是空白。
+> ~~`git clone https://github.com/EvanNotFound/hexo-theme-redefine.git themes/redefine`~~（已过时）
+>
+> 原来这里是用 `git clone` 到 `themes/redefine`。现在更推荐用上面的 npm 安装：升级只要更新版本号，仓库里也不用保存整个主题。注意不要留一个空的 `themes/redefine` 目录，它会盖住 npm 安装的主题，导致生成的页面全是空白。
 
 ### 2. 配置站点使用Redefine主题
 修改Hexo根目录下的 `_config.yml`：

@@ -94,7 +94,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog.hgyjllk.top/images/og-image.webp">
 <meta property="article:published_time" content="2025-09-02T02:52:18.000Z">
-<meta property="article:modified_time" content="2026-10-03T10:51:05.496Z">
+<meta property="article:modified_time" content="2026-10-03T10:55:40.483Z">
 <meta property="article:author" content="hgyjllk">
 <meta property="article:tag" content="Hexo">
 <meta property="article:tag" content="blog">
@@ -399,15 +399,15 @@
 
         <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">20</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">19</div>
         <div class="label text-third-text-color text-sm">标签</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">3</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">2</div>
         <div class="label text-third-text-color text-sm">分类</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">8</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">7</div>
         <div class="label text-third-text-color text-sm">文章</div>
     </a>
 </div>
@@ -458,8 +458,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2026-10-03 18:51:05</span>
-            <span class="mobile">2026-10-03 18:51:05</span>
+            <span class="desktop">2026-10-03 18:55:40</span>
+            <span class="mobile">2026-10-03 18:55:40</span>
             <span class="hover-info">更新</span>
         </span>
     
@@ -577,7 +577,7 @@
 <h2 id="部署与测试"><a href="#部署与测试" class="headerlink" title="部署与测试"></a>部署与测试</h2><p>完成配置后，执行以下命令重新生成博客：</p>
 <div class="code-container" data-rel="Bash"><figure class="iseeu highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo generate</span><br></pre></td></tr></table></figure></div>
 
-<p>然后把生成的 <code>public/</code> 目录部署到你的服务器上。如果你在 <code>_config.yml</code> 里配置了 <code>deploy</code>，也可以用 <code>hexo deploy</code> 一键部署；我的 <code>deploy.type</code> 是空的，所以是用 <code>rsync</code> 把 <code>public/</code> 上传到服务器的。</p>
+<p>然后把生成的 <code>public/</code> 目录部署到你的服务器上。<del>原来这里写的是 <code>hexo deploy</code></del>，但我的 <code>_config.yml</code> 里 <code>deploy.type</code> 是空的，这条命令不会生效，实际是用 <code>rsync</code> 把 <code>public/</code> 上传到服务器的。如果你在 <code>_config.yml</code> 里配置了 <code>deploy</code>，才可以用 <code>hexo deploy</code> 一键部署。</p>
 <p>部署完成后，访问任意博客文章页面，应该能看到Giscus评论组件。使用GitHub账号登录即可测试评论功能。</p>
 <h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul>
 <li><a class="link"   target="_blank" rel="noopener" href="https://giscus.app/" >Giscus官方文档<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a></li>
@@ -598,7 +598,7 @@
         
             <li>
                 <strong>更新于
-                    :</strong> 2026-10-03 18:51:05
+                    :</strong> 2026-10-03 18:55:40
             </li>
         
         <li>
@@ -845,7 +845,7 @@
                 
                 <p class="post-count space-x-0.5">
                     <span>
-                        共撰写了 8 篇文章
+                        共撰写了 7 篇文章
                     </span>
                     
                 </p>
