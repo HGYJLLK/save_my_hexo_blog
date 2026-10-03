@@ -508,7 +508,7 @@
 
         <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">19</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">21</div>
         <div class="label text-third-text-color text-sm">标签</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
@@ -567,7 +567,7 @@
 </div>
                 <div class="statistics flex justify-around my-2.5">
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">19</div>
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">21</div>
         <div class="label text-third-text-color text-sm">标签</div>
     </a>
     <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
@@ -924,23 +924,20 @@ Giscus评论系统的优势完全免费：它基于GitHub的免费服务，无�
                 <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
                     <h3 class="home-article-title">
                         <a href="/2025/05/10/%E5%A6%82%E4%BD%95%E7%BB%99%E4%BD%A0%E8%87%AA%E5%B7%B1%E9%83%A8%E7%BD%B2%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%89%E8%A3%85-IPV6%EF%BC%9F/">
-                            如何在 Mac 上配置 IPv6 DDNS 实现公网访问
+                            家里的 Mac 怎么对外提供服务：IPv6 DDNS、反向 SSH 隧道和 Tailscale 怎么选
                         </a>
                     </h3>
 
                     <div class="home-article-content markdown-body">
                         
                             
-                            在Mac上配置IPv6 DDNS实现公网访问前提条件
-运营商提供了IPv6，但没有公网IPv4地址
-拥有阿里云的域名（例如：hgyjllk.top）
-获取了光猫的管理权限并关闭了IPv6防火墙
+                            家里的 Mac（或 Mac mini）上跑着网站、接口、后台，想让外面的人访问，该怎么做？家宽通常没有公网 IPv4，办法有好几种。这篇把我用过的三种放在一起对比：IPv6 DDNS 直连（这篇最早写的）、阿里云反向 SSH 隧道（我现在对外服务用的）、Tailscale（我自己远程管理用的）。
+先看结论：三种方法怎么选
 
-步骤总结一、准备工作
-检查IPv6连接
 
-通过ifconfig命令确认Mac上的IPv6地址
-确认我们的IPv6地址，例如：0000:0a00:0000:f000:800:b0a0:0f0:0dcd...
+
+方案一：IPv6 DDNS 直连
+方案二：反向 SSH 隧道 +...
                         
                     </div>
 
@@ -982,7 +979,12 @@ Giscus评论系统的优势完全免费：它基于GitHub的免费服务，无�
                     
                         <li>
                             | 
-                            <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%90%E7%BB%B4/">服务器运维</a>&nbsp;
+                            <a href="/tags/Tailscale/">Tailscale</a>&nbsp;
+                        </li>
+                    
+                        <li>
+                            | 
+                            <a href="/tags/SSH%E9%9A%A7%E9%81%93/">SSH隧道</a>&nbsp;
                         </li>
                     
                 </ul>
@@ -990,7 +992,7 @@ Giscus评论系统的优势完全免费：它基于GitHub的免费服务，无�
         
     </div>
 
-    <a href="/2025/05/10/%E5%A6%82%E4%BD%95%E7%BB%99%E4%BD%A0%E8%87%AA%E5%B7%B1%E9%83%A8%E7%BD%B2%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%89%E8%A3%85-IPV6%EF%BC%9F/">阅读全文<span class="seo-reader-text">如何在 Mac 上配置 IPv6 DDNS 实现公网访问</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+    <a href="/2025/05/10/%E5%A6%82%E4%BD%95%E7%BB%99%E4%BD%A0%E8%87%AA%E5%B7%B1%E9%83%A8%E7%BD%B2%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%89%E8%A3%85-IPV6%EF%BC%9F/">阅读全文<span class="seo-reader-text">家里的 Mac 怎么对外提供服务：IPv6 DDNS、反向 SSH 隧道和 Tailscale 怎么选</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
 </div>
 
                 </div>
@@ -1013,8 +1015,9 @@ Giscus评论系统的优势完全免费：它基于GitHub的免费服务，无�
                     <div class="home-article-content markdown-body">
                         
                             
-                            
-提示（2026 年更新）： 这篇讲的是手动下载阿里云证书并配置到 Apache 的方法，证书有效期只有 3 个月，到期要手动更换。我现在已经改用 Certbot 自动签发和续期，推荐看这篇：如何使用 Let’s Encrypt + Certbot 提供完全免费的 https 证书。另外，阿里云的免费证书是面向个人测试和开发环境的，正式使用请留意阿里云的最新规则。这篇里的 Apache 虚拟...
+                             这篇已过时，请改用新方案这篇讲的是手动下载阿里云证书并配置到 Apache，证书只有 3 个月有效期，到期必须手动更换，忘了网站就会报证书错误。我现在已经全部改用 Certbot 自动签发和自动续期，请直接看这篇：
+👉 如何使用 Let’s Encrypt + Certbot 提供完全免费的 https 证书
+下面带删除线的内容已经过时，没有删除线的部分（比如 Apache 虚拟主机配置...
                         
                     </div>
 

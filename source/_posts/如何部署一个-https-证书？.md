@@ -4,7 +4,13 @@ date: 2025-05-10 14:01:57
 tags: [SSL, HTTPS, Apache, 服务器运维]
 categories: [服务器运维]
 ---
-> **提示（2026 年更新）：** 这篇讲的是手动下载阿里云证书并配置到 Apache 的方法，证书有效期只有 3 个月，到期要手动更换。我现在已经改用 Certbot 自动签发和续期，推荐看这篇：[如何使用 Let's Encrypt + Certbot 提供完全免费的 https 证书](/2025/07/22/如何使用Let-s-Encrypt-Certbot提供完全免费的https证书/)。另外，阿里云的免费证书是面向个人测试和开发环境的，正式使用请留意阿里云的最新规则。这篇里的 Apache 虚拟主机配置部分仍然适用。
+{% callout type="warning" title="这篇已过时，请改用新方案" icon="fa-solid fa-triangle-exclamation" %}
+这篇讲的是**手动**下载阿里云证书并配置到 Apache，证书只有 3 个月有效期，到期必须手动更换，忘了网站就会报证书错误。我现在已经全部改用 Certbot 自动签发和自动续期，**请直接看这篇：**
+
+**[👉 如何使用 Let's Encrypt + Certbot 提供完全免费的 https 证书](/2025/07/22/如何使用Let-s-Encrypt-Certbot提供完全免费的https证书/)**
+
+下面带删除线的内容已经过时，没有删除线的部分（比如 Apache 虚拟主机配置）仍然适用。另外，阿里云的免费证书是面向个人测试和开发环境的，正式使用请留意阿里云的最新规则。
+{% endcallout %}
 
 ## 在阿里云上部署 ssh 证书的前提条件
 
@@ -204,7 +210,9 @@ sudo tail -f /var/log/apache2/error.log
 3. ~~替换服务器上的证书文件~~
 4. ~~重新加载Apache~~
 
-> **建议改用新方案：** 手动续期太容易忘，证书过期网站就会报错。现在请直接用 Certbot 自动签发和续期，见 [如何使用 Let's Encrypt + Certbot 提供完全免费的 https 证书](/2025/07/22/如何使用Let-s-Encrypt-Certbot提供完全免费的https证书/)。
+{% callout type="warning" title="建议改用新方案" icon="fa-solid fa-arrow-right" %}
+手动续期太容易忘，证书过期网站就会报错。现在请直接用 Certbot 自动签发和续期：**[如何使用 Let's Encrypt + Certbot 提供完全免费的 https 证书](/2025/07/22/如何使用Let-s-Encrypt-Certbot提供完全免费的https证书/)**
+{% endcallout %}
 
 ```bash
 sudo systemctl reload apache2
