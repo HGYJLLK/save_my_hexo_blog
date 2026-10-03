@@ -10,3 +10,4 @@ node_modules/
 *.swo
 *~
 CLAUDE.md
+.claude/
