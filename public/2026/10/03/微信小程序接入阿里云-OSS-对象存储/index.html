@@ -133,14 +133,14 @@
         
         <meta name="description" content="我的个人博客">
 <meta property="og:type" content="article">
-<meta property="og:title" content="微信小程序接入阿里云 OSS 对象存储：跑腿小程序里哪些功能用到了它">
+<meta property="og:title" content="微信小程序接入阿里云 OSS：什么功能对应用到 OSS 的什么能力">
 <meta property="og:url" content="http://blog.hgyjllk.top/2026/10/03/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%8E%A5%E5%85%A5%E9%98%BF%E9%87%8C%E4%BA%91-OSS-%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="我的个人博客">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://blog.hgyjllk.top/images/og-image.webp">
 <meta property="article:published_time" content="2026-10-03T13:00:00.000Z">
-<meta property="article:modified_time" content="2026-10-03T09:45:34.329Z">
+<meta property="article:modified_time" content="2026-10-03T09:58:38.642Z">
 <meta property="article:author" content="hgyjllk">
 <meta property="article:tag" content="微信小程序">
 <meta property="article:tag" content="阿里云">
@@ -159,7 +159,7 @@
     
     <title>
         
-            微信小程序接入阿里云 OSS 对象存储：跑腿小程序里哪些功能用到了它 | hgyjllk代码手记
+            微信小程序接入阿里云 OSS：什么功能对应用到 OSS 的什么能力 | hgyjllk代码手记
         
     </title>
 
@@ -475,7 +475,7 @@
 		<div class="article-title relative w-full">
 			
 			<div class="w-full flex items-center pt-6 justify-start">
-				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">微信小程序接入阿里云 OSS 对象存储：跑腿小程序里哪些功能用到了它</h1>
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">微信小程序接入阿里云 OSS：什么功能对应用到 OSS 的什么能力</h1>
 			</div>
 			
 		</div>
@@ -503,8 +503,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2026-10-03 17:45:34</span>
-            <span class="mobile">2026-10-03 17:45:34</span>
+            <span class="desktop">2026-10-03 17:58:38</span>
+            <span class="mobile">2026-10-03 17:58:38</span>
             <span class="hover-info">更新</span>
         </span>
     
@@ -570,92 +570,49 @@
 
 
 		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
-			<p>我们有一个校园跑腿类的微信小程序（小程序 + 管理后台 + Midway 后端）。上线前梳理外部依赖时，我把代码里所有用到阿里云 OSS 的地方过了一遍。这篇先讲<strong>项目里哪些功能会用到 OSS</strong>，再讲怎么配，最后讲一个我在代码里发现的问题：为什么最好准备<strong>两个 Bucket</strong>。</p>
-<h2 id="一、项目里哪些功能会用到-OSS"><a href="#一、项目里哪些功能会用到-OSS" class="headerlink" title="一、项目里哪些功能会用到 OSS"></a>一、项目里哪些功能会用到 OSS</h2><h3 id="小程序端：用户上传的图片"><a href="#小程序端：用户上传的图片" class="headerlink" title="小程序端：用户上传的图片"></a>小程序端：用户上传的图片</h3><p>小程序里所有上传都走同一个 <code>upload()</code> 方法：先传到我们自己的后端 <code>/api/upload/put</code>，由后端用 <code>ali-oss</code> 的 SDK 写进 OSS，返回 https 地址。文件名是随机的 20 位 ID，前缀由请求头决定，默认是 <code>pic/</code>。</p>
-<table>
+			<p>小程序加管理后台的项目，涉及图片上传、文件存放的地方都可以交给阿里云 OSS。这篇不讲项目细节，只讲一件事：<strong>业务里的每个功能，分别对应用到 OSS 的哪项能力，以及要怎么配。</strong></p>
+<h2 id="功能和-OSS-能力对照"><a href="#功能和-OSS-能力对照" class="headerlink" title="功能和 OSS 能力对照"></a>功能和 OSS 能力对照</h2><table>
 <thead>
 <tr>
-<th>功能</th>
-<th>页面 &#x2F; 组件</th>
-<th>前缀</th>
+<th>业务功能</th>
+<th>用到的 OSS 能力</th>
+<th>怎么配</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>发布跑腿订单时添加图片、备注图</td>
-<td>发布页、跑腿描述组件</td>
-<td><code>errands/</code></td>
+<td>小程序里用户上传图片</td>
+<td>服务端上传：小程序把文件传给自己的后端，后端用 SDK 写进 Bucket</td>
+<td>后端配置 Bucket、地域和 RAM 子账号的 AccessKey；小程序域名白名单加后端域名</td>
 </tr>
 <tr>
-<td>发布打印订单时上传要打印的文件图片</td>
-<td>发布页</td>
-<td><code>print/</code></td>
+<td>小程序里显示图片</td>
+<td>公共读：图片用裸链接直接访问</td>
+<td>Bucket 设为公共读，并关闭「阻止公共访问」；<code>downloadFile</code> 白名单加 OSS 域名</td>
 </tr>
 <tr>
-<td>订单附件（最多 3 张）</td>
-<td>服务下单的附件组件</td>
-<td><code>pic/</code></td>
+<td>管理后台上传素材、图片</td>
+<td>浏览器直传：用 STS 临时凭证，文件不经过自己的服务器</td>
+<td>RAM 角色加 STS 权限，后端提供换凭证接口；Bucket 配 CORS</td>
 </tr>
 <tr>
-<td>修改头像、服务头像</td>
-<td>个人资料页、头像组件</td>
-<td><code>pic/</code></td>
+<td>后台列表里显示缩略图</td>
+<td>图片处理：在链接后加 <code>x-oss-process</code> 参数，按需裁剪缩放</td>
+<td>不用额外配置，不用自己生成缩略图</td>
 </tr>
 <tr>
-<td><strong>接单员认证：上传学生证</strong></td>
-<td>接单员注册页</td>
-<td><code>pic/</code></td>
-</tr>
-<tr>
-<td><strong>接单员认证：上传身份证（国徽面、人像面）</strong></td>
-<td>接单员注册页</td>
-<td><code>pic/</code></td>
-</tr>
-<tr>
-<td>接单员操作订单时拍照上传</td>
-<td>订单接单操作组件</td>
-<td><code>pic/</code></td>
+<td>存放证件照、证书这类敏感文件</td>
+<td>私有 Bucket：不对外公开，读取时用签名链接</td>
+<td>单独建一个私有 Bucket，代码里改成签名 URL 或用 SDK 读取</td>
 </tr>
 </tbody></table>
-<h3 id="管理后台：浏览器直传和图片展示"><a href="#管理后台：浏览器直传和图片展示" class="headerlink" title="管理后台：浏览器直传和图片展示"></a>管理后台：浏览器直传和图片展示</h3><ul>
-<li><strong>素材管理和通用上传组件</strong>：后台的素材图片页，以及后台录入接单员时上传学生证等，都是浏览器<strong>直传 OSS</strong>，用后端 <code>/admin/sts</code> 换来的临时凭证，不经过我们的服务器。</li>
-<li><strong>缩略图</strong>：后台里的头像、订单图、素材图都通过 OSS 的图片处理参数（<code>x-oss-process=image/…/resize</code>）按需裁剪，不用自己做缩略图。</li>
-<li><strong>微信支付证书</strong>：后台「商户配置」里，要上传微信支付的 <code>apiclient_cert.p12</code>、<code>apiclient_cert.pem</code>、<code>apiclient_key.pem</code>，用的也是这个直传方法，文件路径是 <code>cert/</code>。后端要退款时，会按保存的地址把这三个文件下载下来使用。</li>
-</ul>
-<p>所以这个项目一共有三类东西放在 OSS 里：<strong>用户上传的订单图和头像</strong>、<strong>接单员的证件照</strong>、<strong>微信支付证书</strong>。</p>
-<h2 id="二、为什么要两个-Bucket"><a href="#二、为什么要两个-Bucket" class="headerlink" title="二、为什么要两个 Bucket"></a>二、为什么要两个 Bucket</h2><p>看完上面这张表会发现问题：目前代码里只有一个 <code>ossBucket</code> 配置，所有文件都写进同一个 Bucket。</p>
-<p>而为了让小程序里的 <code>&lt;image&gt;</code> 能直接用裸链接显示图片（代码里没有做签名 URL），这个 Bucket 必须是<strong>公共读</strong>。结果是：</p>
-<ul>
-<li>接单员的<strong>身份证照片、学生证</strong>，任何人拿到链接就能看；</li>
-<li>微信支付的 <strong>API 证书和私钥</strong>（<code>apiclient_key.pem</code>）也放在 <code>cert/</code> 下，同样是公共读。文件名虽然是随机 UUID，但「靠猜不到」不是权限控制，链接一旦出现在日志、截图或数据库导出里，私钥就泄露了。</li>
-</ul>
-<p>所以正确的做法是分成两个：</p>
-<table>
-<thead>
-<tr>
-<th>Bucket</th>
-<th>读写权限</th>
-<th>放什么</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>图片桶</td>
-<td><strong>公共读</strong></td>
-<td>订单图、头像、素材、富文本图片</td>
-</tr>
-<tr>
-<td>敏感文件桶</td>
-<td><strong>私有</strong></td>
-<td>身份证、学生证、微信支付证书</td>
-</tr>
-</tbody></table>
-<p><strong>需要注意：这不是只改配置就能完成的。</strong> 现状有两处代码依赖公共读：</p>
+<p>下面按这张表，把每项能力的配置展开讲一遍。</p>
+<h2 id="一、服务端上传（小程序上传图片）"><a href="#一、服务端上传（小程序上传图片）" class="headerlink" title="一、服务端上传（小程序上传图片）"></a>一、服务端上传（小程序上传图片）</h2><p>小程序里的 <code>uni.uploadFile</code> 请求的是自己的后端，由后端再用 <code>ali-oss</code> SDK 写进 OSS，返回 https 地址。文件名建议用随机 ID，再加一个前缀目录（比如 <code>pic/</code>、<code>order/</code>），方便分类和以后清理。</p>
+<p>要配的有两处：</p>
 <ol>
-<li>后端下载支付证书用的是直接拿 URL 下载，私有桶会返回 403，要改成用 OSS SDK 读取，或者生成带签名的临时链接；</li>
-<li>后台的接单员列表里，学生证是直接用图片地址显示的，换成私有桶后，要改成请求时生成签名 URL。</li>
+<li><strong>后端</strong>：在配置里填 <code>ossRegion</code>（Bucket 所在地域，比如 <code>oss-cn-guangzhou</code>）、<code>ossBucket</code>（桶名）、<code>accessKeyId</code> &#x2F; <code>accessKeySecret</code>。AccessKey 用 <strong>RAM 子账号</strong>的，不要用主账号的。</li>
+<li><strong>小程序</strong>：在<a class="link"   target="_blank" rel="noopener" href="https://mp.weixin.qq.com/" >微信公众平台<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>的「开发 → 开发管理 → 开发设置 → 服务器域名」里，<code>request</code> 和 <code>uploadFile</code> 都填<strong>自己的后端域名</strong>（必须 https，并已备案），因为小程序上传的是后端，不是直接传 OSS。</li>
 </ol>
-<p>如果暂时不想改代码，至少要知道当前的风险，并且证书文件尽快迁移出去。</p>
-<h2 id="三、创建-Bucket"><a href="#三、创建-Bucket" class="headerlink" title="三、创建 Bucket"></a>三、创建 Bucket</h2><p>在 <a class="link"   target="_blank" rel="noopener" href="https://oss.console.aliyun.com/" >OSS 控制台<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> 创建 Bucket，地域选离用户近的（我们用的是广州 <code>oss-cn-guangzhou</code>）。</p>
-<p><strong>图片桶（公共读）</strong> 有两层限制，两层都要改对：</p>
+<h2 id="二、公共读（小程序显示图片）"><a href="#二、公共读（小程序显示图片）" class="headerlink" title="二、公共读（小程序显示图片）"></a>二、公共读（小程序显示图片）</h2><p>小程序的 <code>&lt;image&gt;</code> 标签如果直接用裸链接，Bucket 就必须是<strong>公共读</strong>。阿里云有两层限制，两层都要改对：</p>
 <ol>
 <li><strong>创建时</strong>：读写权限只能选「私有」，这是阿里云强制的，正常现象，直接创建；</li>
 <li><strong>创建后</strong>，进入 Bucket →「权限管理」：<ol>
@@ -664,19 +621,18 @@
 </ol>
 </li>
 </ol>
-<p>只改第二步没用，「阻止公共访问」默认开着，会照样拦截访问，图片会返回 403。</p>
-<p><strong>敏感文件桶（私有）</strong> 保持创建时的默认私有就行，不用动「阻止公共访问」。</p>
-<p>另外，一个项目一个 Bucket：别和别的项目共用，不然想单独统计流量、控制权限、清理数据时容易搞混，授权范围也会被不必要地放大。新建时先看清桶名，别误点进别的项目的 Bucket。</p>
-<h2 id="四、RAM-子账号和-STS-角色（管理后台直传用）"><a href="#四、RAM-子账号和-STS-角色（管理后台直传用）" class="headerlink" title="四、RAM 子账号和 STS 角色（管理后台直传用）"></a>四、RAM 子账号和 STS 角色（管理后台直传用）</h2><p>浏览器直传 OSS 不能把长期密钥发给前端，要后端用 STS 换一个临时凭证（项目里是 <code>/admin/sts</code> 接口，后端的 <code>STSService</code> 调用 <code>assumeRole</code>）。在 <a class="link"   target="_blank" rel="noopener" href="https://ram.console.aliyun.com/" >RAM 控制台<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> 里：</p>
+<p>只改第二步没用，「阻止公共访问」默认开着，会照样拦截访问，图片返回 403。</p>
+<p>另外，小程序「服务器域名」里的 <code>downloadFile</code> 要加上 OSS 域名，不然下载、预览图片会被拦截。</p>
+<h2 id="三、浏览器直传（后台上传）"><a href="#三、浏览器直传（后台上传）" class="headerlink" title="三、浏览器直传（后台上传）"></a>三、浏览器直传（后台上传）</h2><p>后台直传不能把长期密钥发给前端，要后端用 <strong>STS</strong> 换一个临时凭证，前端拿着临时凭证直接传给 OSS。在 <a class="link"   target="_blank" rel="noopener" href="https://ram.console.aliyun.com/" >RAM 控制台<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a> 里：</p>
 <ol>
-<li>创建一个 RAM 子账号，生成 AccessKey，填进后台的 <code>accessKeyId</code> &#x2F; <code>accessKeySecret</code>（不要用主账号的 AccessKey）；</li>
+<li>创建一个 RAM 子账号，生成 AccessKey；</li>
 <li>创建一个 RAM 角色，可信实体选<strong>当前阿里云账号</strong>；</li>
 <li>给角色添加权限 <code>AliyunOSSFullAccess</code>，给子账号添加权限 <code>AliyunSTSAssumeRoleAccess</code>；</li>
-<li>把角色的 <strong>ARN</strong> 填进后台的 ARN 输入框。</li>
+<li>把角色的 <strong>ARN</strong> 填进后端配置。</li>
 </ol>
-<p>我们踩过这个坑：ARN 一直是空的，后台上传（包括上传支付证书）就一直失败，排查了一阵才发现。</p>
+<p>我们踩过这个坑：ARN 一直是空的，后台上传就一直失败，排查了一阵才发现。</p>
 <p><code>AliyunOSSFullAccess</code> 是对所有 Bucket 的完全权限，范围比较大。想收紧的话，可以自定义一个只允许操作指定 Bucket 的权限策略，再挂给角色。</p>
-<h2 id="五、跨域设置（CORS）"><a href="#五、跨域设置（CORS）" class="headerlink" title="五、跨域设置（CORS）"></a>五、跨域设置（CORS）</h2><p>后台直传是浏览器跨域请求，要在 OSS 里放行。进入 Bucket →「权限管理」→「跨域设置（CORS）」，添加一条规则：</p>
+<p>浏览器直传是跨域请求，还要给 Bucket 配 <strong>CORS</strong>。进入 Bucket →「权限管理」→「跨域设置（CORS）」，添加一条规则：</p>
 <table>
 <thead>
 <tr>
@@ -686,7 +642,7 @@
 </thead>
 <tbody><tr>
 <td>来源</td>
-<td>管理后台的域名，比如 <code>https://admin.example.com</code></td>
+<td>后台的域名，比如 <code>https://admin.example.com</code></td>
 </tr>
 <tr>
 <td>允许 Methods</td>
@@ -701,27 +657,20 @@
 <td><code>ETag</code></td>
 </tr>
 </tbody></table>
-<h2 id="六、小程序的域名白名单"><a href="#六、小程序的域名白名单" class="headerlink" title="六、小程序的域名白名单"></a>六、小程序的域名白名单</h2><p>在<a class="link"   target="_blank" rel="noopener" href="https://mp.weixin.qq.com/" >微信公众平台<i class="fa-solid fa-arrow-up-right ml-[0.2em] font-light align-text-top text-[0.7em] link-icon"></i></a>的「开发 → 开发管理 → 开发设置 → 服务器域名」里：</p>
-<ul>
-<li><code>request</code> 合法域名：填自己的 API 域名，必须是 <strong>https</strong>，而且要已经 ICP 备案（小程序上传图片走的就是它，请求的是我们自己的后端）；</li>
-<li><code>uploadFile</code> 合法域名：填自己的 API 域名，因为 <code>uni.uploadFile</code> 请求的也是后端的 <code>/api/upload/put</code>；</li>
-<li><code>downloadFile</code> 合法域名：填 OSS 域名，用于下载、预览图片。</li>
-</ul>
-<p>这里要注意：小程序上传不是直传 OSS，所以 <code>uploadFile</code> 白名单里需要的是 <strong>API 域名</strong>。</p>
-<h2 id="七、配置落地"><a href="#七、配置落地" class="headerlink" title="七、配置落地"></a>七、配置落地</h2><p>在后台的「地图及上传设置」里填：</p>
-<ul>
-<li><code>ossRegion</code>：Bucket 所在地域，比如 <code>oss-cn-guangzhou</code>；</li>
-<li><code>ossBucket</code>：桶名；</li>
-<li><code>accessKeyId</code> &#x2F; <code>accessKeySecret</code>：RAM 子账号的 AccessKey；</li>
-<li><code>arn</code>：上面角色的 ARN。</li>
-</ul>
+<h2 id="四、图片处理（缩略图）"><a href="#四、图片处理（缩略图）" class="headerlink" title="四、图片处理（缩略图）"></a>四、图片处理（缩略图）</h2><p>OSS 自带图片处理，在图片链接后面加参数就能按需裁剪、缩放，比如：</p>
+<div class="code-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://&lt;bucket&gt;.&lt;region&gt;.aliyuncs.com/pic/xxx.jpg?x-oss-process=image/auto-orient,1/resize,m_fill,w_200,h_200</span><br></pre></td></tr></table></figure></div>
+
+<p>后台的列表页、头像、素材预览都可以用它，不用自己再生成缩略图，也能省流量。</p>
+<h2 id="五、私有-Bucket（敏感文件）"><a href="#五、私有-Bucket（敏感文件）" class="headerlink" title="五、私有 Bucket（敏感文件）"></a>五、私有 Bucket（敏感文件）</h2><p>公共读的 Bucket 里，任何人拿到链接就能访问，<strong>不适合放证件照、支付证书、私钥这类敏感文件</strong>。这类文件要单独建一个<strong>私有</strong> Bucket，创建时保持默认私有，不用动「阻止公共访问」。</p>
+<p>私有 Bucket 的文件不能再用裸链接访问，读取时要么用 OSS SDK，要么生成<strong>带有效期的签名 URL</strong>。所以如果项目是先用一个公共读桶跑起来的，后面再拆分，代码里下载和显示的地方都要同步改。</p>
+<h2 id="建议：一个项目一个-Bucket"><a href="#建议：一个项目一个-Bucket" class="headerlink" title="建议：一个项目一个 Bucket"></a>建议：一个项目一个 Bucket</h2><p>不同项目的文件不要混在同一个 Bucket 里：以后单独统计流量、控制权限、清理数据都更方便，也避免授权范围被不必要地放大。新建时先看清桶名，别误点进别的项目的 Bucket。</p>
 <h2 id="排查清单"><a href="#排查清单" class="headerlink" title="排查清单"></a>排查清单</h2><ul>
 <li>图片返回 403：先看「阻止公共访问」是不是还开着，再看读写权限是不是公共读；</li>
-<li>后台上传失败（含支付证书）：看 ARN 是否填了，子账号是否挂了 <code>AliyunSTSAssumeRoleAccess</code>；</li>
+<li>后台上传失败：看 ARN 是否填了，子账号是否挂了 <code>AliyunSTSAssumeRoleAccess</code>；</li>
 <li>浏览器控制台报跨域：检查 CORS 的来源是否和后台域名完全一致，包括 <code>https://</code>；</li>
-<li>小程序里上传失败：检查 <code>request</code> 和 <code>uploadFile</code> 白名单里有没有 API 域名；图片显示不出来：检查 <code>downloadFile</code> 里有没有 OSS 域名。</li>
+<li>小程序上传失败：检查 <code>request</code> 和 <code>uploadFile</code> 白名单里有没有后端域名；图片显示不出来：检查 <code>downloadFile</code> 里有没有 OSS 域名。</li>
 </ul>
-<p>AccessKey 只放在后台配置或服务器环境里，不要写进代码、文档或聊天记录；一旦泄露，马上到 RAM 里轮换。</p>
+<p>AccessKey 只放在后端配置里，不要写进代码、文档或聊天记录；一旦泄露，马上到 RAM 里轮换。</p>
 
 		</div>
 
@@ -729,14 +678,14 @@
 		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
 			<div class="article-copyright-info-container">
     <ul>
-        <li><strong>标题:</strong> 微信小程序接入阿里云 OSS 对象存储：跑腿小程序里哪些功能用到了它</li>
+        <li><strong>标题:</strong> 微信小程序接入阿里云 OSS：什么功能对应用到 OSS 的什么能力</li>
         <li><strong>作者:</strong> HGYJLLK</li>
         <li><strong>创建于
                 :</strong> 2026-10-03 21:00:00</li>
         
             <li>
                 <strong>更新于
-                    :</strong> 2026-10-03 17:45:34
+                    :</strong> 2026-10-03 17:58:38
             </li>
         
         <li>
@@ -864,8 +813,8 @@
 		<div class="post-toc-wrap">
 	<div class="post-toc">
 		<div class="toc-title">目录</div>
-		<div class="page-title">微信小程序接入阿里云 OSS 对象存储：跑腿小程序里哪些功能用到了它</div>
-		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E9%A1%B9%E7%9B%AE%E9%87%8C%E5%93%AA%E4%BA%9B%E5%8A%9F%E8%83%BD%E4%BC%9A%E7%94%A8%E5%88%B0-OSS"><span class="nav-text">一、项目里哪些功能会用到 OSS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%AB%AF%EF%BC%9A%E7%94%A8%E6%88%B7%E4%B8%8A%E4%BC%A0%E7%9A%84%E5%9B%BE%E7%89%87"><span class="nav-text">小程序端：用户上传的图片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%A1%E7%90%86%E5%90%8E%E5%8F%B0%EF%BC%9A%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9B%B4%E4%BC%A0%E5%92%8C%E5%9B%BE%E7%89%87%E5%B1%95%E7%A4%BA"><span class="nav-text">管理后台：浏览器直传和图片展示</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%B8%A4%E4%B8%AA-Bucket"><span class="nav-text">二、为什么要两个 Bucket</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%88%9B%E5%BB%BA-Bucket"><span class="nav-text">三、创建 Bucket</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81RAM-%E5%AD%90%E8%B4%A6%E5%8F%B7%E5%92%8C-STS-%E8%A7%92%E8%89%B2%EF%BC%88%E7%AE%A1%E7%90%86%E5%90%8E%E5%8F%B0%E7%9B%B4%E4%BC%A0%E7%94%A8%EF%BC%89"><span class="nav-text">四、RAM 子账号和 STS 角色（管理后台直传用）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E8%B7%A8%E5%9F%9F%E8%AE%BE%E7%BD%AE%EF%BC%88CORS%EF%BC%89"><span class="nav-text">五、跨域设置（CORS）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%9F%9F%E5%90%8D%E7%99%BD%E5%90%8D%E5%8D%95"><span class="nav-text">六、小程序的域名白名单</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E9%85%8D%E7%BD%AE%E8%90%BD%E5%9C%B0"><span class="nav-text">七、配置落地</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%92%E6%9F%A5%E6%B8%85%E5%8D%95"><span class="nav-text">排查清单</span></a></li></ol>
+		<div class="page-title">微信小程序接入阿里云 OSS：什么功能对应用到 OSS 的什么能力</div>
+		<ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD%E5%92%8C-OSS-%E8%83%BD%E5%8A%9B%E5%AF%B9%E7%85%A7"><span class="nav-text">功能和 OSS 能力对照</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%B8%8A%E4%BC%A0%EF%BC%88%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87%EF%BC%89"><span class="nav-text">一、服务端上传（小程序上传图片）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%85%AC%E5%85%B1%E8%AF%BB%EF%BC%88%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%98%BE%E7%A4%BA%E5%9B%BE%E7%89%87%EF%BC%89"><span class="nav-text">二、公共读（小程序显示图片）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9B%B4%E4%BC%A0%EF%BC%88%E5%90%8E%E5%8F%B0%E4%B8%8A%E4%BC%A0%EF%BC%89"><span class="nav-text">三、浏览器直传（后台上传）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%9B%BE%E7%89%87%E5%A4%84%E7%90%86%EF%BC%88%E7%BC%A9%E7%95%A5%E5%9B%BE%EF%BC%89"><span class="nav-text">四、图片处理（缩略图）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E7%A7%81%E6%9C%89-Bucket%EF%BC%88%E6%95%8F%E6%84%9F%E6%96%87%E4%BB%B6%EF%BC%89"><span class="nav-text">五、私有 Bucket（敏感文件）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BB%BA%E8%AE%AE%EF%BC%9A%E4%B8%80%E4%B8%AA%E9%A1%B9%E7%9B%AE%E4%B8%80%E4%B8%AA-Bucket"><span class="nav-text">建议：一个项目一个 Bucket</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%92%E6%9F%A5%E6%B8%85%E5%8D%95"><span class="nav-text">排查清单</span></a></li></ol>
 
 	</div>
 </div>
