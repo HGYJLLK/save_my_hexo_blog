@@ -165,10 +165,10 @@ navbar:
     pages: 1000px     # 其他页面宽度
   # 导航链接
   links:
-    首页:
+    Home:
       path: /
       icon: fa-regular fa-house
-    归档:
+    Archives:
       path: /archives
       icon: fa-regular fa-archive
     代码仓库:
